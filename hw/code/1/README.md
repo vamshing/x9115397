@@ -16,3 +16,6 @@ MASE-CSC591-Fall-2015: Vamshi G &amp; Sattwik Pati
 
 # IDE ScreenShot - TExtMate
 ![screen shot 2015-08-24 at 8 55 19 pm](https://cloud.githubusercontent.com/assets/10588000/9456205/8091af2e-4aa2-11e5-9fdd-68035c4c6d37.png)
+
+# okok.py test case execution
+![screen shot 2015-08-24 at 8 53 18 pm](https://cloud.githubusercontent.com/assets/8950958/9456258/21048bde-4aa3-11e5-8f0a-b9e7649ce6ce.png)
