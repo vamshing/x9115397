@@ -21,4 +21,8 @@ class unittest:
   def report(i,test):
     import traceback
     print traceback.format_exc()
+<<<<<<< HEAD
     print unittest.score(),':',test.__name__
+=======
+    print unittest.score(),':',test.__name__
+>>>>>>> origin/master

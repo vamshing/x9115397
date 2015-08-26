@@ -30,4 +30,8 @@ def _ok5():
    assert unittest.tries==10
    assert unittest.fails==1
    print unittest.score()
+<<<<<<< HEAD
     
+=======
+    
+>>>>>>> origin/master
