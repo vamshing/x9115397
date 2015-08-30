@@ -19,7 +19,7 @@ def repeat_lyrics():
         print_lyrics()
         print_lyrics()
 
-
+"""
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
 <ipython-input-1-3336ea505857> in <module>()
@@ -31,7 +31,7 @@ NameError                                 Traceback (most recent call last)
 
 NameError: name 'repeat_lyrics' is not defined
 # # 3.2
-
+"""
 # In[ ]:
 
 def repeat_lyrics():
@@ -43,11 +43,12 @@ def print_lyrics():
         print " Like a like a laila!"
         
 repeat_lyrics()
-
+"""
 I am sexy, and I know it!
  Like a like a laila!
 I am sexy, and I know it!
  Like a like a laila!
+ """
 # # 3.3
 
 # In[ ]:
@@ -55,8 +56,9 @@ I am sexy, and I know it!
 def right_justify(s):
     print ' '*(70-len(s)),s
 right_justify('allen')
+"""
 
-                                                                  allen
+                                                                    allen"""
 # # 3.4
 
 # In[ ]:
@@ -70,8 +72,10 @@ def print_spam():
         
 do_twice(print_spam)
 
+"""
 spam
 spam
+"""
 # In[ ]:
 
 def do_twice(f,x):
@@ -83,8 +87,10 @@ def print_spam(x):
         
 do_twice(print_spam,'spam')
 
+"""
 spam
 spam
+"""
 # In[ ]:
 
 def print_twice(x):
@@ -92,8 +98,9 @@ def print_twice(x):
     print x
 print_spam('spam ')
 
+"""
 spam 
-spam 
+spam """
 # In[ ]:
 
 def do_twice(f,x):
@@ -101,10 +108,12 @@ def do_twice(f,x):
         print_twice(x)
 do_twice(print_spam,'spam')
 
+"""
 spam
 spam
 spam
 spam
+"""
 # In[ ]:
 
 def do_four(f,x):
@@ -133,7 +142,7 @@ def print_grid():
     print_once('+','-')
     
 print_grid()
-
+"""
 + ---- + ---- +
 /      /      /
 /      /      /
@@ -145,6 +154,7 @@ print_grid()
 /      /      /
 /      /      /
 + ---- + ---- +
+"""
 # In[ ]:
 
 def print_once(x,y):
@@ -168,7 +178,7 @@ def print_grid():
     print_once('+','-')
     
 print_grid()
-
+"""
 + ---- + ---- + ---- + ---- +
 /      /      /      /      /
 /      /      /      /      /
@@ -190,7 +200,7 @@ print_grid()
 /      /      /      /      /
 /      /      /      /      /
 + ---- + ---- + ---- + ---- +
-# In[ ]:
+"""
 
 
 
