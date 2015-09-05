@@ -209,7 +209,10 @@ print_grid()
 # In[ ]:
 
 import math
-from swampy.TurtleWorld import *
+try:
+    from TurtleWorld import *
+except ImportError:
+    from swampy.TurtleWorld import *
 
 def polyline(t, n, length, angle):
     """Draws n line segments.
@@ -257,7 +260,7 @@ if __name__ == '__main__':
     world = TurtleWorld()    
 
     bob = Turtle()
-    bob.delay = 0.001
+    bob.delay = 0.01
     flower(bob,100,7,60)
     penupmove(bob,200)
     
@@ -275,7 +278,10 @@ if __name__ == '__main__':
 # In[ ]:
 
 import math
-from swampy.TurtleWorld import *
+try:
+    from TurtleWorld import *
+except ImportError:
+    from swampy.TurtleWorld import *
 """
 Assuming that the vertices of the polygon fall on the circle,
 there by subtending equal angles at the centre of the circle
@@ -304,7 +310,7 @@ def generator(t,n,r):
 if __name__ == '__main__':
     world = TurtleWorld()    
     bob = Turtle()
-    bob.delay = 0.001
+    bob.delay = 0.1
     
     #5-gon
     generator(bob,5,100)
@@ -314,7 +320,6 @@ if __name__ == '__main__':
     generator(bob,7,100)
     
     wait_for_user()
-
 
 # In[ ]:
 
