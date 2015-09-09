@@ -1,7 +1,7 @@
 # Summary
 
 ## (i)Reference:
-D. Amaltano, A. Fasolino, S. Carmine, A. Memon,
+D. Amalfitano, A. Fasolino, S. Carmine, A. Memon,
 and P. Tramontana. Using GUI ripping for automated
 testing of Android applications. *In Proceedings of 27th
 Intl. Conf. on Automated Software Engineering
@@ -18,4 +18,8 @@ The process of using a software to conduct the execution of a suite of test case
 ######(ii4)GUI:
 A graphical user interface(GUI), is an interface that allows users to interact 
 with electronic devices through graphical icons instead of typed commands. In the paper we will be dealing with GUIs of Android applications.
+
+##(iii)Features:
+######(iii1)Motivation:
+Given the increasing popularity of Android applications, detecting and fixing bugs has become imperative. Even though developed on a Java Platform, Android applications(developed on Android Development Framework) differs greatly from the Java client-server framwork. This gap in understanding from the developer's standpoint leaves room for defect injection. Thus, the chief motivation of *Amalfitano et. al* is to develop an automated testing software that is capable of testing Android applications via their GUI. Introducing *AndroidRipper*. AndroidRipper analysis the GUI dynamically, introducing new test cases as and when new events are encountered.
 
