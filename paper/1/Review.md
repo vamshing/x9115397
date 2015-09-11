@@ -9,15 +9,18 @@ Intl. Conf. on Automated Software Engineering
 
 ## (ii)Keywords:
 ######(ii1)Testing Tools:
-The purpose of a testing tool is to run a piece of softwares through a suite of testcases for the purpose of discovering flaws in the design or bugs in the code.
+The purpose of a testing tool is to run a piece of software through a suite of testcases for the purpose of discovering flaws in the design or bugs in the code.
 The testing tool being discussed in the paper is *AndroidRipper*.
 ######(ii2)Android:
 Android is an Operating System(OS) developed by Google primarily for touchscreen mobile devices. 
 ######(ii3)Testing Automation:
 The process of using a software to conduct the execution of a suite of test cases on another software is called test automation. The testing software also compares the actual outcomes of a test case with the predicted outcomes.
-######(ii4)GUI:
-A graphical user interface(GUI), is an interface that allows users to interact 
-with electronic devices through graphical icons instead of typed commands. In the paper we will be dealing with GUIs of Android applications.
+######(ii4)GUI Tree:
+An intuitive represenation of the structure extracted during ripping. The nodes of the tree represent the individual User-Interfaces(screens) in the App, while the edges between them show the transition as a hierarchial relationship. Each node encapsulates the state of User-Interface,its objects and its properties.
+######(ii5)Ripping:
+A dynamic process in which the Graphic-User-Interface(of software or app) is automatically traversed by opening all the windows(or screens) and then extract all the widgets' properties and values. This extracted information is verified and used by the test designer to generate multiple test cases. GUI ripping helps to understand both structural and execution behaviour of the GUI.
+######(ii6)Bugs:
+Errors which produce undersirable outcome during app usage, also responsible for app malfunction. Popularly, andriod bugs are *Activity*-based which arise due to incorrect implementation of activity protocol, *Event*-based which arise when the app performs a wrong action for an incoming event, and *Dynamic*-based which come up due to runtime exceptions.
 
 ##(iii)Features:
 ######(iii1)Motivation:
