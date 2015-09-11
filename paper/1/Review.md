@@ -1,11 +1,11 @@
 # Summary
 
 ## (i)Reference:
-D. Amalfitano, A. Fasolino, S. Carmine, A. Memon,
+[D. Amalfitano, A. Fasolino, S. Carmine, A. Memon,
 and P. Tramontana. Using GUI ripping for automated
 testing of Android applications. *In Proceedings of 27th
 Intl. Conf. on Automated Software Engineering
-(ASE)*, 2012. [Paper](http://dl.acm.org/citation.cfm?id=2351717)
+(ASE)*, 2012](http://dl.acm.org/citation.cfm?id=2351717)
 
 ## (ii)Keywords:
 ######(ii1)Testing Tools:
