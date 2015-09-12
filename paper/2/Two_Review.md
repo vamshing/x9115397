@@ -17,3 +17,16 @@
 In Black box view, inputs are user-based and context-based. Memon et al. proposed to model GUI applications by Event-flow graphs. Their model accepts a pre-defined set of user inputs and system-generated events which produces a deterministic output. This does not take into account the non-determinism caused by dynamic context-based inputs. Michele Sama et al. proposed adaptice model of apps based on effects of dynamic context-based updates which accounted for the non-determinism. However, their model could not address the super-set of the user-based and context-based triggers.
 
 Lack of cheap and effective techniques for test-case generation is also a strong motivation of the authors. The earlier practice of record-and-replay the test script was highly subjective. The script is recroded while the tester works on manipulating the app.Then, the recorded scipt is iteratively played on the app back-and-forth.The very subjective nature of this testing process proved ineffective. While high-quality testers are always in demand, not everyone could afford them. Whoever could afford them, could churn out high-quality test scripts encompassing all the test action. This was indeed expensive and detrimental to scaling.The authors wanted to address these two problems by an automated and adaptive approach of testing.
+
+####iv. Scope for Improvement
+
+**ii1. Choice of  Testing Apps** : The The authors' claim that thier technique encompasses both user-input and context-based events.However, their choice of apps to be tested has been limited to trivial apps, which required a user input and basic User Interface operations. The study could be more comprehensive, if the choice of apps included more sensors like viration,accelerometer,GPS and Bluetooth. For instance, certain food apps pushes restaurant suggestions by vibrating the phone in a short burst. These apps respond to the vibration,light and also the touch instantly to generate an output information.Another instance, is the GPS navigation apps which takes cue from the gravity sensor signals from the phone.The logical mix of events in these apps could be lot more diverse rather than limiting to similar cluster of apps like Dialer and SMS. 
+
+**ii2. Distance calculation metric : A further enquiry into the distance calculation between the two test cases. The authors used the mean of normalized sequence distance and value distance. However, equal weight allocaiton for both the components might vary depending on the app. For apps, which have multi-input features may have the weights for value component more than sequence distance. So, any empirical study in convergence(here, the F-score) could be useful to give a distribution of weights for different app/app-categories.
+
+**ii3. Clustering of apps : In an evolutionary space, we would like to collect the cases where success was achieved, and use them to be more successful in future. So, it is imperative to have the test cases where the apps failed so that these test-cases could be used iteratively in similar apps. The mobile industry is far ahead in clustering of apps(refer [xyo - the app recommender which uses clustering](https://play.google.com/store/apps/details?id=net.xyo.app.search&hl=en)).So, testing the successfull test-cases on similar apps could bring down the run-time of the testing effort.
+
+
+
+
+
