@@ -5,11 +5,11 @@
 
 **ii1. Adaptive Random Testing** : It is an improved version of Random testing for test case generation. ART realizes the fact that the input failure regions of an app cluster together. So, it tries to spread the test case generation as evenly as possible, to detect the first failure. ART is 40-50% more quicker than Random testing to detect the first failure of an app.
 
-**ii2. Test Case generation** : 
+**ii2. Test Case generation** : Test cases are the actions formed by a set of events. The set of events form a action to be tested on a mobile app so as to observe the output. The primary aim is to look for where apps malfuncion against a given test case.
 
 **ii3. Black Box View** : of a mobile application is an approach which looks at the apps by observing input and output data. The input could be ***user-based*** such as text,touch input, or ***context-based*** such as GPS information,sensors,activity by the chat,social network etc.The app generates multiple possibilities of output like graphics,audio,vibration,etc based on the combinations of the changing input sequence.
 
-**ii4. Random Technique** : 
+**ii4. Random Technique** : This technique generates random test cases for mobile app testing.It is a fully automatic,non-intrusive and takes a pure random approach in simulaiton events from a random pool.There is chance that new event generated might be closer to the one generated in the previos event sequence set.
 
 ####iii. Notes
 
@@ -22,9 +22,9 @@ Lack of cheap and effective techniques for test-case generation is also a strong
 
 **ii1. Choice of  Testing Apps** : The The authors' claim that thier technique encompasses both user-input and context-based events.However, their choice of apps to be tested has been limited to trivial apps, which required a user input and basic User Interface operations. The study could be more comprehensive, if the choice of apps included more sensors like viration,accelerometer,GPS and Bluetooth. For instance, certain food apps pushes restaurant suggestions by vibrating the phone in a short burst. These apps respond to the vibration,light and also the touch instantly to generate an output information.Another instance, is the GPS navigation apps which takes cue from the gravity sensor signals from the phone.The logical mix of events in these apps could be lot more diverse rather than limiting to similar cluster of apps like Dialer and SMS. 
 
-**ii2. Distance calculation metric : A further enquiry into the distance calculation between the two test cases. The authors used the mean of normalized sequence distance and value distance. However, equal weight allocaiton for both the components might vary depending on the app. For apps, which have multi-input features may have the weights for value component more than sequence distance. So, any empirical study in convergence(here, the F-score) could be useful to give a distribution of weights for different app/app-categories.
+**ii2. Distance calculation metric** : A further enquiry into the distance calculation between the two test cases. The authors used the mean of normalized sequence distance and value distance. However, equal weight allocaiton for both the components might vary depending on the app. For apps, which have multi-input features may have the weights for value component more than sequence distance. So, any empirical study in convergence(here, the F-score) could be useful to give a distribution of weights for different app/app-categories.
 
-**ii3. Clustering of apps : In an evolutionary space, we would like to collect the cases where success was achieved, and use them to be more successful in future. So, it is imperative to have the test cases where the apps failed so that these test-cases could be used iteratively in similar apps. The mobile industry is far ahead in clustering of apps(refer [xyo - the app recommender which uses clustering](https://play.google.com/store/apps/details?id=net.xyo.app.search&hl=en)).So, testing the successfull test-cases on similar apps could bring down the run-time of the testing effort.
+**ii3. Clustering of apps** : In an evolutionary space, we would like to collect the cases where success was achieved, and use them to be more successful in future. So, it is imperative to have the test cases where the apps failed so that these test-cases could be used iteratively in similar apps. The mobile industry is far ahead in clustering of apps(refer [xyo - the app recommender which uses clustering](https://play.google.com/store/apps/details?id=net.xyo.app.search&hl=en)).So, testing the successfull test-cases on similar apps could bring down the run-time of the testing effort.
 
 
 
