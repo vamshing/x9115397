@@ -11,7 +11,7 @@
 
 **ii4. Random Technique** : 
 
-####iii. Keywords
+####iii. Notes
 
 **iii1. Motivation** : 
 In Black box view, inputs are user-based and context-based. Memon et al. proposed to model GUI applications by Event-flow graphs. Their model accepts a pre-defined set of user inputs and system-generated events which produces a deterministic output. This does not take into account the non-determinism caused by dynamic context-based inputs. Michele Sama et al. proposed adaptice model of apps based on effects of dynamic context-based updates which accounted for the non-determinism. However, their model could not address the super-set of the user-based and context-based triggers.
