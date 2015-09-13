@@ -18,6 +18,17 @@ In Black box view, inputs are user-based and context-based. Memon et al. propose
 
 Lack of cheap and effective techniques for test-case generation is also a strong motivation of the authors. The earlier practice of record-and-replay the test script was highly subjective. The script is recroded while the tester works on manipulating the app.Then, the recorded scipt is iteratively played on the app back-and-forth.The very subjective nature of this testing process proved ineffective. While high-quality testers are always in demand, not everyone could afford them. Whoever could afford them, could churn out high-quality test scripts encompassing all the test action. This was indeed expensive and detrimental to scaling.The authors wanted to address these two problems by an automated and adaptive approach of testing.
 
+**iii2. Commentary** : One of the novel aspects, we found about the study is the usage of short-hand notation to represent an Event. The figure below gives the illustration. The sequence of events is denoted by the combination of alpha-numeric characters.This helps in selection the events for test-case generation, by applying Levenshien distance to select the farthest event-sequence.
+
+![](https://cloud.githubusercontent.com/assets/10588000/9839341/d66d0b26-5a44-11e5-9f56-fa3d1505ab2d.png)
+
+**iii3. Future work:** : The Adaptive Random testing technique could be further extended to testing for games based on TV. Any event driven software, which has all the events of different kinds would benefit hugely in reducing the number of test cases. Video-games with sensor driven arms would benefit hugely by:
+
+- Reducing the number of test cases needed to arrive at the first fault.
+- Finding faults with the different combinations of sensor evets.
+
+The authors performed ART for set-top boxes, and claim to have got the time reduced to find the first fault by 40%.
+
 ####iv. Scope for Improvement
 
 **ii1. Choice of  Testing Apps** : The The authors' claim that thier technique encompasses both user-input and context-based events.However, their choice of apps to be tested has been limited to trivial apps, which required a user input and basic User Interface operations. The study could be more comprehensive, if the choice of apps included more sensors like viration,accelerometer,GPS and Bluetooth. For instance, certain food apps pushes restaurant suggestions by vibrating the phone in a short burst. These apps respond to the vibration,light and also the touch instantly to generate an output information.Another instance, is the GPS navigation apps which takes cue from the gravity sensor signals from the phone.The logical mix of events in these apps could be lot more diverse rather than limiting to similar cluster of apps like Dialer and SMS. 
