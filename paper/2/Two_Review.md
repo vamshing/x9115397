@@ -22,7 +22,11 @@ Lack of cheap and effective techniques for test-case generation is also a strong
 
 ![](https://cloud.githubusercontent.com/assets/10588000/9839341/d66d0b26-5a44-11e5-9f56-fa3d1505ab2d.png)
 
-**iii3. Future work:** : The Adaptive Random testing technique could be further extended to testing for games based on TV. Any event driven software, which has all the events of different kinds would benefit hugely in reducing the number of test cases. Video-games with sensor driven arms would benefit hugely by:
+**iii3. Baseline Results:** The figure shows the comparison between ART and Random technique. It shows the time take taken for the first fault using both the methods. While in case of Bluetooth app the time is nearly equal, ART performs well in reducing the time taken to catch the fault for rest of the apps.
+![screen shot 2015-09-14 at 9 37 19 pm](https://cloud.githubusercontent.com/assets/10588000/9865780/d317c026-5b28-11e5-8b2f-003c7c33d6ec.png)
+
+
+**iii4. Future work:** : The Adaptive Random testing technique could be further extended to testing for games based on TV. Any event driven software, which has all the events of different kinds would benefit hugely in reducing the number of test cases. Video-games with sensor driven arms would benefit hugely by:
 
 - Reducing the number of test cases needed to arrive at the first fault.
 - Finding faults with the different combinations of sensor events.
