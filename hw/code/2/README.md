@@ -7,7 +7,7 @@ MASE-CSC591-Fall-2015: Vamshi G &amp; Sattwik Pati
 
 ![screen shot 2015-09-15 at 11 28 36 am](https://cloud.githubusercontent.com/assets/10588000/9881336/75286a7c-5b9d-11e5-9491-6bb048cbbd82.png)
 
-
+![screen shot 2015-09-15 at 11 39 03 am](https://cloud.githubusercontent.com/assets/10588000/9881552/7a7e1ade-5b9e-11e5-9204-bbb6e110b538.png)
 
 ![screen shot 2015-09-15 at 11 31 07 am](https://cloud.githubusercontent.com/assets/10588000/9881338/7533f8c4-5b9d-11e5-8815-da6dde26b18a.png)
 
