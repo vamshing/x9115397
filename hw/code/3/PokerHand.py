@@ -6,8 +6,10 @@ Copyright 2012 Allen B. Downey
 License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
 
 """
-
+from __future__ import division
+from pprint import pprint
 from Card import *
+
 
 labels = ['straightflush','fourofakind','fullhouse','flush','straight','threeofakind','twopair', 'pair']
 class PokerHand(Hand):
@@ -78,8 +80,8 @@ class PokerHand(Hand):
         for l in labels:
             _ = getattr(self,'has_'+l)
             if _():
-                print l
-                break
+                #print l
+                return l
     
     def has_fourofakind(self):
         """Returns True if the hand has 4 cards of the same rank, False otherwise.
@@ -127,20 +129,37 @@ class PokerHand(Hand):
         """
         return self.check_rank(2)
 
-
-if __name__ == '__main__':
-    # make a deck
+def handLabeling(s,cards):
     deck = Deck()
     deck.shuffle()
-
+    handLabel = []
     # deal the cards and classify the hands
-    for i in range(7):
+    for i in range(s):
         hand = PokerHand()
-        deck.move_cards(hand, 7)
+        deck.move_cards(hand, cards)
         hand.sort()
-        print hand
-        #print hand.has_flush()
-        #print hand.has_pair()
-        #print hand.has_twopair()
-        hand.classify()
-        print ''
+        handLabel.append(hand.classify())
+    return handLabel
+
+def probability(n=1000,s=7,cards=7):
+    count = {}
+    for i in range(0,n):
+        inhand = handLabeling(s,cards)
+        for l in inhand:
+            count[l] = count.get(l,0) + 1
+    tot = s * 1000
+    print "Total count of each label\n"
+    print count
+    print "\n"
+    print "Probability of each label\n"
+    for l in labels:
+        count[l] = count.get(l,0)/tot
+        pprint(l+ ":" +"%.5f" %count[l]) 
+    
+if __name__ == '__main__':
+    numofIter = 1000
+    sizeofHand = 7
+    cards = 7
+    probability(numofIter,sizeofHand,cards)
+    # make a deck
+    
