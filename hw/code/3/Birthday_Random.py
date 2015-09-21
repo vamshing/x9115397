@@ -1,7 +1,7 @@
 from __future__ import division, print_function
 import random
 
-__author__ = "Sattwik Pati (spati2@ncsu.edu)"
+__author__ = "Sattwik Pati aka ICE!V!an"
 __copyright__ = "NA"
 __license__ = "NA"
 __version__ = "NA"
@@ -32,5 +32,7 @@ def birthday_paradox(num = 23,iteration=1000):
 if __name__ == '__main__':
     num = 23
     iteration = 100
-    print ("the probability of having the birthday on the same day is is :",birthday_paradox(num,iteration))
+    print ('group size:'+str(num))
+    print ('number of iterations:'+str(iteration))
+    print ("the probability of having the birthday on the same day is :",birthday_paradox(num,iteration))
                                                                                                                                 
