@@ -10,6 +10,10 @@ from __future__ import division
 from pprint import pprint
 from Card import *
 
+__author__ = "Sattwik Pati aka ICE!V!an"
+__copyright__ = "NA"
+__license__ = "NA"
+__version__ = "NA"
 
 labels = ['straightflush','fourofakind','fullhouse','flush','straight','threeofakind','twopair', 'pair']
 class PokerHand(Hand):
@@ -147,7 +151,7 @@ def probability(n=1000,s=7,cards=7):
         inhand = handLabeling(s,cards)
         for l in inhand:
             count[l] = count.get(l,0) + 1
-    tot = s * 1000
+    tot = s * n
     print "Total count of each label\n"
     print count
     print "\n"
