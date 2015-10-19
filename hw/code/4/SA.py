@@ -14,11 +14,11 @@ def compute(dec):
     
 ##Model
 class Schaffer_model():
-    def __init__(self,hi,low):
+    def __init__(self,hi,low,objhi=1.0,objlow=0.0):
         self.low = low
         self.hi = hi
-        self.objhi = 1.0
-        self.objlow = 0.0
+        self.objhi = objhi
+        self.objlow = objlow
         self.minobj = self.objlow
         self.maxobj = self.objhi
         
@@ -39,9 +39,12 @@ class Schaffer_model():
     def compute_f(self,decision):
         f1, f2 = compute(decision)
         return self.norm(f1+f2)
+    
+    def retrieve_objs(self):
+        return self.minobj,self.maxobj
 
 ##Optimizer
-def SA(model,kmax=1000,cooling=5):
+def SA(model,val=False,kmax=1000):
     k = 0
     state = model.generate()
     en = model.compute_f(state)
@@ -63,10 +66,13 @@ def SA(model,kmax=1000,cooling=5):
             state,en = neigh_state,neigh_en
         reading +=  state_reading
         if  k % 25 == 0 :
-            print(str(model.denorm(be_en))+reading)
+            if(val==False):
+                print(str(model.denorm(be_en))+reading)
             reading = ""
-    print(model.maxobj,model.minobj)
-    return b_state,be_en
+    if (val==True):
+        return model.retrieve_objs()
+    else:
+        return b_state,model.denorm(be_en)
 
 ##Initiator
 def hw4():
@@ -77,8 +83,10 @@ def hw4():
     print("Schaffer\n")
     hi = 100
     low = -hi
-    best,en = SA(Schaffer_model(hi,low))
-    print(best,en)
+    minobj,maxobj = SA(Schaffer_model(hi,low),True)
+    best,en = SA(Schaffer_model(hi,low,maxobj,minobj))
+    print("Best State",float(best))
+    print("Best energy",float(en))
     
 if __name__ == "__main__":
   hw4()
