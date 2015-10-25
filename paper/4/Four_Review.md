@@ -80,19 +80,19 @@ The author has demonstrated some success with reducing the space via abstraction
 New ESESs could be designed to traverse the event space in more intelligent ways in lesser time and space.
 
 
-**References:**
+####**References:**
 
-1. White L, Almezen H. Generating test cases for GUI responsibilities using complete interaction sequences. Proceedings
+1. [White L, Almezen H. Generating test cases for GUI responsibilities using complete interaction sequences. Proceedings
 of the International Symposium on Software Reliability Engineering, 8–11 October 2000. IEEE Computer Society Press:
-Piscataway, NJ, 2000; 110–121.
+Piscataway, NJ, 2000; 110–121.](http://barbie.uta.edu/~mehra/23_Generating%20Test%20Cases%20for%20GUI%20Responsibilities%20Using%20Complete%20Interaction.pdf)
 
-2. White L, Almezen H, Alzeidi N. User-based testing of GUI sequences and their interaction. Proceedings of the
+2. [White L, Almezen H, Alzeidi N. User-based testing of GUI sequences and their interaction. Proceedings of the
 International Symposium on Software Reliability Engineering, 8–11 November 2001. IEEE Computer Society Press:
-Piscataway, NJ, 2001; 54–63.
+Piscataway, NJ, 2001; 54–63.](http://ieeexplore.ieee.org/xpl/abstractAuthors.jsp?tp=&arnumber=989458&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D989458)
 
-3.Kasik DJ, George HG. Toward automatic generation of novice user test scripts. Proceedings of the Conference on Human
-Factors in Computing Systems: Common Ground, New York, 13–18 April 1996. ACM Press: New York, 1996; 244–251.
+3. [Kasik DJ, George HG. Toward automatic generation of novice user test scripts. Proceedings of the Conference on Human
+Factors in Computing Systems: Common Ground, New York, 13–18 April 1996. ACM Press: New York, 1996; 244–251](http://www.sigchi.org/chi96/proceedings/papers/Kasik/djk_txt.htm)
 
-4.Memon AM, Banerjee I, Nagarajan A. GUI ripping: Reverse engineering of graphical user interfaces for testing.
+4. [Memon AM, Banerjee I, Nagarajan A. GUI ripping: Reverse engineering of graphical user interfaces for testing.
 Proceedings of the 10th Working Conference on Reverse Engineering, November 2003. IEEE Computer Society Press:
-Piscataway, NJ, 2003; 260–269.
+Piscataway, NJ, 2003; 260–269.](http://dl.acm.org/citation.cfm?id=951350)
