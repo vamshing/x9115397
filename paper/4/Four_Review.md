@@ -51,10 +51,7 @@ The set of follows(v) can be determined using the algorithm in Figure above for 
 - [x] ***Reverse-Engineering:*** 
       The GUI Ripper[4], a tool to automatically obtain event-flow graphs and the integration tree is used to Reverse Engineer.During ‘GUI Ripping’, the GUI application is executed automatically; the application’s windows are opened in a depth-first manner. The GUI Ripper extracts all of the widgets and their properties from the GUI. During the reverse-engineering process, in addition to widget properties, additional key attributes of each widget are recovered . These attributes are used to construct the event-flow graphs and integration tree.
 
-**iii3. Scripts:**
-All of the tools described in this paper have been packaged into a software called [GUITAR](http://guitar.cs.umd.edu). GUITAR has been downloaded more than 10,000 times since it was first made available in 2002.Several practitioners in industry provided continuous feedback that drives bug-fixes and enhancements.
-
-**iii4. Baseline Results:**
+**iii3. Baseline Results:**
 
 ***Mock Experiment***:The usage the event-flow model and tools for experimentation is compared with manual testing. 
 
@@ -68,6 +65,9 @@ All of the tools described in this paper have been packaged into a software call
 
 ![Comparison - Number of faults detected](https://cloud.githubusercontent.com/assets/10588000/10717966/94cf2fa4-7b3d-11e5-9aa2-c59449c937fb.png)
 
+**iii4. Scripts:**
+All of the tools described in this paper have been packaged into a software called [GUITAR](http://guitar.cs.umd.edu). GUITAR has been downloaded more than 10,000 times since it was first made available in 2002.Several practitioners in industry provided continuous feedback that drives bug-fixes and enhancements.
+
 ####iv. Scope for Improvement
 
 **ii1. Scalability** : 
@@ -80,15 +80,19 @@ The author has demonstrated some success with reducing the space via abstraction
 New ESESs could be designed to traverse the event space in more intelligent ways in lesser time and space.
 
 
-References:
+**References:**
+
 1. White L, Almezen H. Generating test cases for GUI responsibilities using complete interaction sequences. Proceedings
 of the International Symposium on Software Reliability Engineering, 8–11 October 2000. IEEE Computer Society Press:
 Piscataway, NJ, 2000; 110–121.
+
 2. White L, Almezen H, Alzeidi N. User-based testing of GUI sequences and their interaction. Proceedings of the
 International Symposium on Software Reliability Engineering, 8–11 November 2001. IEEE Computer Society Press:
 Piscataway, NJ, 2001; 54–63.
+
 3.Kasik DJ, George HG. Toward automatic generation of novice user test scripts. Proceedings of the Conference on Human
 Factors in Computing Systems: Common Ground, New York, 13–18 April 1996. ACM Press: New York, 1996; 244–251.
+
 4.Memon AM, Banerjee I, Nagarajan A. GUI ripping: Reverse engineering of graphical user interfaces for testing.
 Proceedings of the 10th Working Conference on Reverse Engineering, November 2003. IEEE Computer Society Press:
 Piscataway, NJ, 2003; 260–269.
