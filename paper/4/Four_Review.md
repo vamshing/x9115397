@@ -26,23 +26,69 @@ GUI testing process. These strategies address more complex problems faced during
 
 ####iii. Artifacts
 
-**iii1. Motivation** : 
-
-![screen shot 2015-09-27 at 3 19 42 pm](https://cloud.githubusercontent.com/assets/10588000/10124764/49ac83be-652b-11e5-9a79-1a05f55b14d4.png)
-
+**iii1. Motivation** : The author speaks about three main areas of research which attempted at automating few aspects of GUI Testiing. They are summarized below:
+- White et al.[1,2] presentd a different state-machine model for GUI test-case generation that partitions the state space into different machines based on ***user tasks***. The test designer identifies a responsibility, i.e. a user task that can be performed with the GUI. This approach was successful at partitioning the GUI into manageable functional units that can be tested separately.
+**Drawback:** Large manual effort is in designing the FSM model for testing, especially when code is not available.
+- Another approach is to to mimic novice users’ inputs [3]. This approach relies on an expert to first manually generate a sequence of GUI events for a given user task. A genetic algorithm technique is then used to modify and lengthen the sequence, thereby mimicking a novice user. The underlying assumption is that novice users often take indirect paths through GUIs, whereas expert users take shorter, more direct paths.
+**Drawback:**This technique requires a substantial amount of manual effort, and cannot be used to generate other types of test cases.
+- Other tools used for GUI testing require programming each GUI test case. These tools include extensions of JUnit such as JFCUnit, Abbot, Pounder, and Jemmy Module. 
+**Drawback:** The tester should manually program the event interactions to test, and also specify expected GUI behaviour.
+ 
 **iii2. Checklists:** : 
 
-**iii3. Study Instruments** :
--
-**iii4. Scripts:**
+The components required to obtain the ***Event-flow model*** include:
 
-**iii5. Baseline Results:**
+- [x] ***Construction of the event-flow graphs and integration tree:*** 
+     The construction of the event-flow graphs and integration tree is based on the identification of modal dialogues and, the identification of modal and modeless windows and their invokes relationships. A classification of GUI events is used to identify modal and modeless windows. The classification of events is used by an algorithm (given below) to construct event-flow graphs for a GUI. The algorithm computes the set of follows for each event. These sets are then used to create the edges of the event-flow graph.
 
+![Computing follows for a vertex v](https://cloud.githubusercontent.com/assets/10588000/10717904/bdf68e06-7b3b-11e5-906a-09476adcf93f.png)
+
+The set of follows(v) can be determined using the algorithm in Figure above for each vertex v.
+
+- [x] ***Partially create operators from the event-flow graphs:*** 
+      The integration tree can be represented as preconditions and effects.This information is retrieved and used to partially create the operators automatically. The test designer ses an iterative process to code the operators. It involves coding a set of operators for a group of related events followed by model checking,. As errors are discovered during model checking, the operators are fixed and rechecked. This happens iteratively
+
+- [x] ***Reverse-Engineering:*** 
+      The GUI Ripper[4], a tool to automatically obtain event-flow graphs and the integration tree is used to Reverse Engineer.During ‘GUI Ripping’, the GUI application is executed automatically; the application’s windows are opened in a depth-first manner. The GUI Ripper extracts all of the widgets and their properties from the GUI. During the reverse-engineering process, in addition to widget properties, additional key attributes of each widget are recovered . These attributes are used to construct the event-flow graphs and integration tree.
+
+**iii3. Scripts:**
+All of the tools described in this paper have been packaged into a software called [GUITAR](http://guitar.cs.umd.edu). GUITAR has been downloaded more than 10,000 times since it was first made available in 2002.Several practitioners in industry provided continuous feedback that drives bug-fixes and enhancements.
+
+**iii4. Baseline Results:**
+
+***Mock Experiment***:The usage the event-flow model and tools for experimentation is compared with manual testing. 
+
+***Goal***:The goal of this mock experiment is to determine how the test cases generated compared with those created manually by using capture/replay tools
+
+***Test***: ESES algorithms.
+
+***Control***: The human tester was then given 100 tasks, i.e. activities that they could complete by using the application. They had to devise five different ways to complete each task; the capture tool recorded the user interaction as a test case. The tasks were chosen carefully so that they covered most of the functionality of the applications- 500 test cases were obtained in this way. Then the testers were asked to interact with the software without using tasks, but were asked to cover most of the applications’ windows- 500 additional test cases were generated in this way. In all, 1000 test cases were obtained per application. Each tester took 10–14 days to complete this process.
+
+***The results***:
+
+![Comparison - Number of faults detected](https://cloud.githubusercontent.com/assets/10588000/10717966/94cf2fa4-7b3d-11e5-9aa2-c59449c937fb.png)
 
 ####iv. Scope for Improvement
 
 **ii1. Scalability** : 
+The event-flow model is scalable,as discussed, the size of the model grows linearly with the number of events in the GUI. The biggest challenge that this model currently poses is controlling the size of the space of all possible event interactions. If this can be achieved, scalability issue would be largely address. As observed,the number of event sequences that can be executed on the GUI grows exponentially with length.
 
-**ii2. A metric to evaluate clustering** : 
+**ii2. Reduce space via Abstraction** : 
+The author has demonstrated some success with reducing the space via abstractions for instance using modal dialogues. Additional abstractions created in such framework will help to further reduce the space. This could potentially save a lot of space.
 
-**ii3. Feasibility of implementation** :  
+**ii3. More path traversal** :  
+New ESESs could be designed to traverse the event space in more intelligent ways in lesser time and space.
+
+
+References:
+1. White L, Almezen H. Generating test cases for GUI responsibilities using complete interaction sequences. Proceedings
+of the International Symposium on Software Reliability Engineering, 8–11 October 2000. IEEE Computer Society Press:
+Piscataway, NJ, 2000; 110–121.
+2. White L, Almezen H, Alzeidi N. User-based testing of GUI sequences and their interaction. Proceedings of the
+International Symposium on Software Reliability Engineering, 8–11 November 2001. IEEE Computer Society Press:
+Piscataway, NJ, 2001; 54–63.
+3.Kasik DJ, George HG. Toward automatic generation of novice user test scripts. Proceedings of the Conference on Human
+Factors in Computing Systems: Common Ground, New York, 13–18 April 1996. ACM Press: New York, 1996; 244–251.
+4.Memon AM, Banerjee I, Nagarajan A. GUI ripping: Reverse engineering of graphical user interfaces for testing.
+Proceedings of the 10th Working Conference on Reverse Engineering, November 2003. IEEE Computer Society Press:
+Piscataway, NJ, 2003; 260–269.
