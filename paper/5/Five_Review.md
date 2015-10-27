@@ -1,5 +1,5 @@
 ## Paper review - Five
-####i. [Automating GUI Testing for Android Applications, 2011 Cuixiong Hu Iulian Neamtiu](http://delivery.acm.org/10.1145/1990000/1982612/p77-hu.pdf?ip=152.14.142.89&id=1982612&acc=ACTIVE%20SERVICE&key=6ABC8B4C00F6EE47%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35%2E4D4702B0C3E38B35&CFID=556104249&CFTOKEN=78591993&__acm__=1445906046_d7ae7dfe71c844120ab7d61df4a7651d)
+####i. [Automating GUI Testing for Android Applications, 2011 Cuixiong Hu Iulian Neamtiu](http://dl.acm.org/citation.cfm?id=1982612)
 ***Number of Citations :*** 30
 
 ####ii. Keywords
