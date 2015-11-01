@@ -1,4 +1,2 @@
-# x9115vam
-MASE-CSC591-Fall-2015: Vamshi G &amp; Sattwik Pati
-
-![sa](https://cloud.githubusercontent.com/assets/8950958/10588606/0a791cb0-7675-11e5-9221-e653ba2523d4.png)
+![screen shot 2015-11-01 at 9 16 48 am](https://cloud.githubusercontent.com/assets/8950958/10869316/f58dc6a2-8079-11e5-86dc-34c653ad5acd.png)
+![screen shot 2015-11-01 at 9 21 11 am](https://cloud.githubusercontent.com/assets/8950958/10869317/f728591e-8079-11e5-8a30-e0741ba2bcfa.png)
