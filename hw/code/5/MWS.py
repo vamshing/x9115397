@@ -129,7 +129,7 @@ def MWS(model,val=False,kmax=1000,maxtries=50,maxchanges=100,threshold=200,p=0.5
         return model.retrieve_objs()
     else:
         print(output)
-        return best_solution,model.denorm(be_en)
+        return best_solution,be_en
 
 
 ##Initiator
@@ -141,7 +141,6 @@ def hw5():
     print("Osyczka\n")
     hi = 1
     low = 0
-    MWS(Osyczka_model(hi,low),True)
     minobj,maxobj = MWS(Osyczka_model(hi,low),True)
     best,en = MWS(Osyczka_model(hi,low,maxobj,minobj))
     print("Best State",best)
