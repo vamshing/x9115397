@@ -44,7 +44,7 @@ class Schaffer_model():
         return self.minobj,self.maxobj
 
 ##Optimizer
-def SA(model,val=False,kmax=1000):
+def SA(model,val=False,kmax=1000,cooling=5):
     k = 0
     state = model.generate()
     en = model.compute_f(state)
@@ -61,18 +61,18 @@ def SA(model,val=False,kmax=1000):
         elif neigh_en< en:
             state_reading = " +"
             state,en = neigh_state,neigh_en
-        elif math.e**((en - neigh_en)/((1-(k/kmax))))>random.random():
+        elif math.e**((en - neigh_en)/((1-(k/kmax)))**cooling)>random.random():
             state_reading = " ?"
             state,en = neigh_state,neigh_en
         reading +=  state_reading
         if  k % 25 == 0 :
             if(val==False):
-                print(str(model.denorm(be_en))+reading)
+                print(str(be_en)+reading)
             reading = ""
     if (val==True):
         return model.retrieve_objs()
     else:
-        return b_state,model.denorm(be_en)
+        return b_state,be_en
 
 ##Initiator
 def hw4():
