@@ -7,7 +7,7 @@
 
 **ii1. Evolutionary Testing** :  Evolutionary testing is a form of search-based testing, where an individual corresponds to a test case, and a population comprised of many individuals is evolved according to certain heuristics to maximize the code coverage.
 
-**ii2. Program Analysis** :  A technique to model the app behaviour by analyzing the source code of the application.Approacheswhich uses program analysis obtain a more complete model of the app’s behavior.
+**ii2. Program Analysis** :  A technique to model the app behaviour by analyzing the source code of the application.Approaches which uses program analysis obtain a more complete model of the app’s behavior.
 
 **ii3.System Reliability** : In system reliability analysis we are concerned with the construction of a model (life distribution) that represents the times-to-failure of the entire system based on the life distributions of the components, subassemblies and/or assemblies ("black boxes") from which it is composed.
 
