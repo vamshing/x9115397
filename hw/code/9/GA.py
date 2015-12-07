@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[59]:
+# In[ ]:
 
 import sys
 import random
@@ -13,19 +13,20 @@ from DTLZ3 import *
 from DTLZ5 import *
 from DTLZ7 import *
 
+
+# In[ ]:
+
 class GA:
     
-    def __init__(self,model,num_candidates = 100,num_generations = 1000,mutation_prob = 0.05):
+    def __init__(self,model,num_candidates = 100,num_generations = 10,mutation_prob = 0.05):
         self.num_objectives = model.num_objectives
         self.num_decisions = model.num_decisions
         self.num_candidates = num_candidates
         self.num_generations = num_generations
         self.mutation_prob = mutation_prob
-        self.lives = 0
-        self.num_lives = 5
+        self.lives = 5
         self.frontier = []
         self.frontier_new = []
-        self.best_frontier = []
         self.base_frontier = []
         self.main(model)
         
@@ -37,7 +38,7 @@ class GA:
         y_obj_vec = model.function_value(y)
         
         for i in range(model.num_objectives):
-            if x_obj_vec[i] <= y_obj_vec[i]:
+            if x_obj_vec[i] < y_obj_vec[i]:
                 return False
         return True
     
@@ -48,10 +49,10 @@ class GA:
         """
         fr = []
         for x in box:
-            selection = 1
+            selection = -1
             for y in box:
-                if self.binary_domination(y,x):
-                    selection = -1
+                if self.binary_domination(x,y):
+                    selection = 1
                     break
             if selection == 1:
                 fr.append(x)
@@ -75,84 +76,62 @@ class GA:
         child.randomstate()
         return child
         
-    
-    def update_best_frontier(self,best_frontier,frontier_new):
-        """
-        Updates the best frontier by comparing with the candidates in the frontier_new
-        set the lives to 0 if the new frontier is better than baseline frontier else increments it
-        """
-        t = []
-        for x in self.frontier_new:
-            for y in self.best_frontier:
-                if self.binary_domination(x,y):
-                    t.append(x)
-                    self.best_frontier.pop(y)
         
-        if len(t) > 0:
-            self.best_frontier.extend(t)
-            self.lives = 0
-        else:
-            if self.check_for_worse():
-                self.lives = 0
-            else:
-                self.lives += 1
-    
-    def check_for_worse(self):
+    def penalize_lives(self):
         """
-        Checks if the frontier_new is good compared to the baseline population
+        Compares between current frontier and the previous frontier
+        if atleast one is better in the current frontier - dont penalize
         """
         for x in self.frontier_new:
-            for y in self.base_frontier:
+            penalty = -1
+            for y in self.frontier:
                 if self.binary_domination(x,y):
-                    return True
-                break
-        return False
-        
+                    return 5
+        return self.lives-1
+                    
     def main(self,model):
         
         box =  [model.randomstate() for _ in range(self.num_candidates)]
         self.base_frontier = self.select(box)
         self.frontier = self.select(box)
-        self.best_frontier = self.frontier
         
         for i in range(self.num_generations):
             newbox = []
             for j in range(self.num_candidates):
+                
                 child = model
                 sample = np.random.randint(0, len(self.frontier), size=2)
                 parent_1 = self.frontier[sample[0]]
                 parent_2= self.frontier[sample[1]]
+                print('before',len(child.dec))
                 self.crossover(parent_1,parent_2,child)
-                
-                if random.random() < self.mutation_prob * (self.lives):
+                print('after',len(child.dec))
+                if random.random() < self.mutation_prob :
                     self.mutate(child)
+                    
                 newbox.append(child.dec)
             
             self.frontier_new = []
-            self.frontier_new = self.select(box)
-            self.update_best_frontier(self.best_frontier,self.frontier_new)
+            self.frontier_new = self.select(newbox)
+            self.lives = self.penalize_lives()
             
-            if self.lives == self.num_lives:
+            if self.lives == 0:
                 break
+            print(len(self.frontier),len(self.frontier_new))
             
             box = newbox
             self.frontier = self.frontier_new
             
-            print '### Generation:',i,'No. of lives left',self.num_lives - self.lives
+            print '### Generation:',i,'No. of lives',self.lives
             
-        return self.best_frontier
-
-
-# In[102]:
-
-model = DTLZ1(2,10)
-state = model.randomstate()
-GA(model)
+        return self.frontier_new
 
 
 # In[ ]:
 
-
+model = DTLZ1(2,10)
+state = model.randomstate()
+GA(model)
 
 
 # In[ ]:
