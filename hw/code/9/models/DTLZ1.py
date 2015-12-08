@@ -41,6 +41,7 @@ class DTLZ1:
         self.dec_high = [1 for _ in range(self.num_decisions)]
         self.dec_low = [0 for _ in range(self.num_decisions)]
         self.dec = []
+        self.randomstate()
         
         
     def g(self,dec):
@@ -67,9 +68,10 @@ class DTLZ1:
         while True:
             dec = list()
             for low,high in zip(self.dec_low,self.dec_high):
-                dec.append(random.uniform(low,high))
-            if self.contraint_ok(dec):
-                return dec
+                self.dec.append(random.uniform(low,high))
+            if self.ok():
+                break
+        return self.dec
     
     def ok(self):
         for i in range(0,self.num_decisions):
