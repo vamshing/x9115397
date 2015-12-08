@@ -43,21 +43,8 @@ class DTLZ1:
         self.randomstate()
         
         
-    def g(self,dec):
-        g = self.num_decisions - self.num_objectives+1
-        for i in range(self.num_decisions - self.num_objectives+1):
-            g += (self.dec[i] - 0.5)**2 - math.cos(20 * math.pi * (self.dec[i] - 0.5))
-        return g*100.    
-        
-    def function_value(self,dec):
-        f = []
-        for i in range(self.num_objectives):
-            val = (1+self.g(dec)) * 0.5
-            for x in self.dec[:self.num_objectives-(i+1)]:
-                val *= x
-            if i != 0:
-                val=val*(1-self.dec[self.num_objectives-i])
-            f.append(val)         
+    def function_value(self,dec,decs,objs):
+        f = function_value(dec,decs,objs)
         return f
         
     def contraint_ok(self,dec):
