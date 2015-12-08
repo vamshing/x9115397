@@ -41,36 +41,13 @@ class DTLZ7:
         self.dec_high = [1 for _ in range(self.num_decisions)]
         self.dec_low = [0 for _ in range(self.num_decisions)]
         self.dec = []
+        self.dec_2 = []
         self.randomstate()
         
-        
-    def g(self,dec):
-        k = self.num_decisions - self.num_objectives+1
-        g = 1. + (((9.)/(k)) * np.sum(self.dec[:self.num_objectives]))
-        return g
-        
-    def h(self,dec):
-        h = self.num_objectives
-        for i in range(self.num_objectives-1):
-            h -= (self.dec[i]/(1 + self.g(dec))) * (1 + math.sin(3 * math.pi * self.dec[i]))        
-        return h
-
-        
-    def function_value(self,dec):
-        f = []
-        
-        for i in range(self.num_objectives):
-            val = 0.0
-            if i == self.num_objectives - 1:
-                val += (1+self.g(dec)) * self.h(dec)
-            else:
-                val += self.dec[i]
-            f.append(val)         
+    def function_value(self,dec,decs,objs):
+        f = function_value(dec,decs,objs)
         return f
-        
-    def contraint_ok(self,dec):
-        return True # no constraints
-        
+    
     def randomstate(self):
         while True:
             dec = list()
@@ -79,15 +56,41 @@ class DTLZ7:
             if self.ok(dec):
                 break
         return dec
-    
+        
     def ok(self,dec):
         for i in range(0,self.num_decisions):
             if dec[i]<self.dec_low[i] or dec[i]>self.dec_high[i]:
                 return False
         return True
+    
+        
+def g(dec,objs,decs):
+    k = decs - objs+1
+    g = 1. + (((9.)/(k)) * np.sum(dec[:objs]))
+    return g
+    
+def h(dec,objs,decs):
+    h = objs
+    for i in range(objs-1):
+        h -= (dec[i]/(1 + g(dec,objs,decs))) * (1 + math.sin(3 * math.pi * dec[i]))        
+    return h
 
-
-# In[ ]:
+    
+def function_value(dec,objs,decs):
+    f = []
+    
+    for i in range(objs):
+        val = 0.0
+        if i == objs - 1:
+            val += (1+g(dec,objs,decs)) * h(dec,objs,decs)
+        else:
+            val += dec[i]
+        f.append(val)         
+    return f
+ 
+        
+    
+    
 
 
 

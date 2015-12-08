@@ -41,34 +41,13 @@ class DTLZ5:
         self.dec_high = [1 for _ in range(self.num_decisions)]
         self.dec_low = [0 for _ in range(self.num_decisions)]
         self.dec = []
+        self.dec_2 = []
         self.randomstate()
-        
-        
-    def g(self,dec):
-        g = 0.
-        for i in range(self.num_decisions - self.num_objectives+1):
-            g += (self.dec[i] - 0.5)**2
-        return g
-        
-    def function_value(self,dec):
-        f = []
-        
-        theta = []
-        for x in self.dec[1:self.num_decisions-1]:
-            theta.append(((math.pi)/(4*(1+self.g(dec))))*(1 + 2*self.g(dec)*x))
-        
-        for i in range(self.num_objectives):
-            val = (1+self.g(dec))
-            for x in theta[:self.num_objectives-(i+1)]:
-                val *= math.cos(x * math.pi * 0.5)
-            if i != 0:
-                val *= val*(math.sin(theta[self.num_objectives-i] * math.pi * 0.5))
-            f.append(val)         
+    
+    def function_value(self,dec,decs,objs):
+        f = function_value(dec,decs,objs)
         return f
-        
-    def contraint_ok(self,dec):
-        return True # no constraints
-        
+    
     def randomstate(self):
         while True:
             dec = list()
@@ -77,10 +56,56 @@ class DTLZ5:
             if self.ok(dec):
                 break
         return dec
-    
+        
     def ok(self,dec):
         for i in range(0,self.num_decisions):
             if dec[i]<self.dec_low[i] or dec[i]>self.dec_high[i]:
                 return False
         return True
-
+                
+        
+def g(dec,objs,decs):
+    g = 0.
+    for i in range(decs - objs+1):
+        g += (dec[i] - 0.5)**2
+    return g
+    
+def function_value(dec,objs,decs):
+    f = []
+    g = 0.
+    
+    for x  in dec[objs-1:]:
+        g = g+(x-.5)**2
+    theta = [math.pi * dec[0] * .5]
+    
+    for x in dec[1:objs-1]:
+        theta.append((1+2*g*x)*math.pi/(4*(1+g)))
+    
+    for i in xrange(objs):
+        tmp = 1+g
+        
+        for x in theta[:objs-1-i]:
+            tmp = tmp * math.cos(x*math.pi*.5)
+        
+        if not i == 0:
+            tmp=tmp*math.sin(theta[objs-i-1]*math.pi/2)
+        
+        f.append(tmp)
+    
+    return f
+        
+    """f = []
+    theta = []
+    for x in dec[1:objs-1]:
+        theta.append(((math.pi)/(4*(1+g(dec,objs,decs))))*(1 + 2*g(dec,objs,decs)*x))
+    
+    
+    for i in range(objs):
+        val = (1+g(dec,objs,decs))
+        for x in theta[:objs-(i+1)]:
+            val *= math.cos(x * math.pi * 0.5)
+        if i != 0:
+            val *= val*(math.sin(theta[objs-(i+1)] * math.pi * 0.5))
+        f.append(val)         
+    return f"""
+        

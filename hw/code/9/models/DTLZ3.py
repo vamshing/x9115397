@@ -41,29 +41,15 @@ class DTLZ3:
         self.dec_high = [1 for _ in range(self.num_decisions)]
         self.dec_low = [0 for _ in range(self.num_decisions)]
         self.dec = []
+        self.dec_2 = []
         self.randomstate()
-        
-        
-    def g(self,dec):
-        g = self.num_decisions - self.num_objectives+1
-        for i in range(self.num_decisions - self.num_objectives+1):
-            g += (self.dec[i] - 0.5)**2 - math.cos(20 * math.pi * (self.dec[i] - 0.5))
-        return g*100.    
-        
-    def function_value(self,dec):
-        f = []
-        for i in range(self.num_objectives):
-            val = (1+self.g(dec))
-            for x in self.dec[:self.num_objectives-(i+1)]:
-                val *= math.cos(x * math.pi * 0.5)
-            if i != 0:
-                val *= val*(math.sin(self.dec[self.num_objectives-i] * math.pi * 0.5))
-            f.append(val)         
+    
+    
+    def function_value(self,dec,decs,objs):
+        f = function_value(dec,decs,objs)
         return f
-        
-    def contraint_ok(self,dec):
-        return True # no constraints
-        
+    
+    
     def randomstate(self):
         while True:
             dec = list()
@@ -78,4 +64,22 @@ class DTLZ3:
             if dec[i]<self.dec_low[i] or dec[i]>self.dec_high[i]:
                 return False
         return True
-
+     
+        
+def g(dec,objs,decs):
+    g = decs - objs+1
+    for i in range(decs - objs+1):
+        g += (dec[i] - 0.5)**2 - math.cos(20 * math.pi * (dec[i] - 0.5))
+        return g*100.    
+        
+def function_value(dec,decs,objs):
+    f = []
+    for i in range(objs):
+        val = (1+g(dec,objs,decs))
+        for x in dec[:objs-(i+1)]:
+            val *= math.cos(x * math.pi * 0.5)
+        if i != 0:
+            val *= val*(math.sin(dec[objs-i] * math.pi * 0.5))
+        f.append(val)         
+    return f
+        
