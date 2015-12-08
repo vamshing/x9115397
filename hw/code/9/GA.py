@@ -197,7 +197,7 @@ if __name__ == '__main__':
                     model =  model_type(objs, decs)
                     result.append(GA(model).main(model))
 
-                    print 'Mean Hypervolume: ',np.mean([result[_][0] for _ in range(len(result))])
-                    print 'SD   Hypervolume: ',np.std([result[_][0] for _ in range(len(result))])
-                    print 'Mean Generations: ',int(np.mean([result[_][1] for _ in range(len(result))]))
-                    print '\n'
+                print 'Mean Hypervolume: ',np.mean([result[_][0] for _ in range(len(result))])
+                print 'SD   Hypervolume: ',np.std([result[_][0] for _ in range(len(result))])
+                print 'Mean Generations: ',int(np.mean([result[_][1] for _ in range(len(result))]))
+                print '\n'
