@@ -129,7 +129,11 @@ class GA:
                     return False
         return True
 
+<<<<<<< HEAD
     def hypervolume(self, frontier, min_vector, max_vector, n=10):
+=======
+    def hypervolume(self, frontier, min_vector, max_vector, n=1000):
+>>>>>>> 1573e69c0fce0bacfde64b5828d2cef37301b62a
         """
         Calculates the Hypervolume in given size
         """
@@ -173,6 +177,7 @@ class GA:
             
             box = newbox
             self.frontier = self.frontier_new
+<<<<<<< HEAD
             #print '# Generation:',i,'No. of lives',self.lives
         '''Best frontier and hypervolume'''    
         #print '*******************'
@@ -207,3 +212,15 @@ if __name__ == '__main__':
                     print 'Mean Generations: ',int(np.mean([result[_][1] for _ in range(len(result))]))
                     print '\n'
 
+=======
+            print '### Generation:',i,'No. of lives',self.lives
+        '''Best frontier and hypervolume'''    
+        print self.hypervolume(self.frontier_new, min_vector, max_vector)
+        return self.frontier_new
+
+models = [DTLZ1,DTLZ3,DTLZ5,DTLZ7]
+model = DTLZ7(4,20)
+decisions = []
+state = model.randomstate()
+GA(model)
+>>>>>>> 1573e69c0fce0bacfde64b5828d2cef37301b62a
