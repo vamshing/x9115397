@@ -8,10 +8,11 @@ import random
 sys.path
 sys.path.append('/Users/vamshiguduguntla/Documents/Python-Programs/models/')
 
-from DTLZ1 import *
-from DTLZ3 import *
-from DTLZ5 import *
-from DTLZ7 import *
+from models import *
+from models.DTLZ1 import DTLZ1
+from models.DTLZ3 import *
+from models.DTLZ5 import *
+from models.DTLZ7 import *
 
 
 # In[13]:
@@ -35,8 +36,9 @@ class GA:
         Type I comparison
         Returns whether candidate x dominates candidate y (Binary domination)
         """
-        x_obj_vec = model.function_value(x)
-        y_obj_vec = model.function_value(y)
+        print(x)
+        x_obj_vec = function_value(x)
+        y_obj_vec = function_value(y)
         
         for i in range(model.num_objectives):
             if x_obj_vec[i] < y_obj_vec[i]:
@@ -67,7 +69,7 @@ class GA:
         while True:
             rand_int = random.randint(0,model.num_decisions)
             child.dec = list(np.array(parent_1)[:rand_int])+list(np.array(parent_2)[rand_int:])
-            if child.ok():
+            if child.ok(child.dec):
                 return child
         
     def mutate(self,child):
@@ -85,6 +87,8 @@ class GA:
         Compares between current frontier and the previous frontier
         if atleast one is better in the current frontier - dont penalize
         """
+        print("new frontier",self.frontier_new[1])
+        exit()
         for x in self.frontier_new:
             penalty = -1
             for y in self.frontier:
@@ -127,7 +131,22 @@ class GA:
             
         return self.frontier_new
 
-
+def g(dec):
+    g = model.num_decisions - model.num_objectives+1
+    for i in range(model.num_decisions - model.num_objectives+1):
+        g += (dec[i] - 0.5)**2 - math.cos(20 * math.pi * (dec[i] - 0.5))
+    return g*100.    
+        
+def function_value(dec):
+    f = []
+    for i in range(model.num_objectives):
+        val = (1+g(dec)) * 0.5
+        for x in dec[:model.num_objectives-(i+1)]:
+            val *= x
+        if i != 0:
+            val=val*(1-dec[model.num_objectives-i])
+        f.append(val)         
+    return f
 # In[14]:
 
 model = DTLZ1(2,10)
