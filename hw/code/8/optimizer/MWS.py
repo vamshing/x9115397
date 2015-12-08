@@ -14,9 +14,8 @@ __version__ = "NA"
 
 
 ##Optimizer
-def MWS(model):
-
-    def change_to_maximize(soln, index):
+def MWS(model,val=False,kmax=1000,maxtries=1000,maxchanges=50,threshold=0,p=0.5):
+    def change_to_maximize(soln, index,steps=10):
         evaluations = 0
         best = soln
         solution = soln
@@ -27,80 +26,57 @@ def MWS(model):
             solution[index] = low + delta*k
             if model.okay(solution) and model.type1(solution, best):
                 best = list(solution)
-        return best, evaluations
-
-
-    print("Model Name : " + model.model_name + ", Optimizer : max walk sat")
-    
-    max_tries = 1000
-    max_changes = 50
-    p = 0.5
-    threshold = 0
-    steps = 10
-    
-    eras = 5
+        return best
+        
+    print("Model Name is " + model.model_name + ", Optimizer is Max Walk Sat")
+    best_solution = model.get_neighbor()
+    be_en = model.normalize_val(model.eval(best_solution))
+    output = ""
+    lives = 5
     previous_era = []
     current_era = []
-
-    evals = 0
-    init_soln = model.get_neighbor()
-    while model.okay(init_soln) is False and model.normalize_val(model.eval(init_soln)) > threshold:
-        init_soln = model.get_neighbor()
-
-    for i in xrange(0, max_tries):
-        output = str()
-        new_soln = model.get_neighbor()
-        while model.okay(new_soln) is False:
-            new_soln = model.get_neighbor()
-
-        for j in xrange(0, max_changes):
-            result = str()
-            if model.normalize_val(model.eval(new_soln)) < threshold:
+    step = 10
+    for i in xrange(0,maxtries):
+        new_solution = model.get_neighbor()
+        new_en = model.normalize_val(model.eval(new_solution))
+        for j in xrange(0,maxchanges):
+            record = " ."
+            curr_en = new_en
+            if curr_en<threshold:
                 if len(previous_era) is not 0:
                     return previous_era
                 else:
                     return current_era
-
-            c = random.randint(1, model.number_vars) - 1
-            if p < random.random():
-                copy_list = list(new_soln)
-                i, j = model.var_bounds[c]
-                if isinstance(i, int) and isinstance(j, int):
-                    copy_list[c] = random.randrange(i, j)
-                else:
-                    copy_list[c] = random.uniform(i, j)
-
-                if model.okay(copy_list) and model.normalize_val(model.eval(new_soln)) >= threshold:
-                    new_soln = copy_list
-                    result = "?"
-                else:
-                    result = "."
+            c =  random.randint(0,model.number_vars-1)
+            oldsolution = copy.copy(new_solution)
+            old_en = new_en
+            if p< random.random():
+                new_solution[c] = random.uniform(model.var_bounds[c][0],model.var_bounds[c][1])
             else:
-                copy_list, t_evals = change_to_maximize(list(new_soln), c)
-                evals += t_evals
-                if copy_list == new_soln:
-                    result = "."
-                else:
-                    new_soln = copy_list
-                    result = "+"
-            output += result
-            if model.type1(new_soln, init_soln) and model.normalize_val(model.eval(new_soln)) >= threshold:
-                init_soln = list(new_soln)
-
-        # print "Evals : " + str(evals) + " Current Best Energy : " + \
-        #       str(model.normalize_val(model.eval(init_soln))) + " " + output
-              
+                new_solution = change_to_maximize(new_solution, c)
+                curr_en = model.normalize_val(model.eval(new_solution))
+            if(old_en==curr_en):
+                record = " ."
+            elif(old_en>curr_en):
+                record = " ?"
+            else:
+                if(old_en<curr_en):
+                    record = " +"
+            if(be_en<curr_en):
+                best_solution = copy.copy(new_solution)
+                be_en = curr_en
+                record = " !"
+            output += record
         if i % 100 is 0 and i is not 0:
             if len(previous_era) is not 0:
-                eras += type2(current_era, previous_era, model)
+                lives += type2(current_era, previous_era, model)
                     
             previous_era = list(current_era)
             current_era = []
         else:
-            current_era.append(new_soln)
+            current_era.append(new_solution)
                 
-        if eras <= 0:
-            print("Early Termination " + str(i) + " : " + str(eras))
+        if lives <= 0:
             return previous_era
     if len(previous_era) is not 0:
         return previous_era
