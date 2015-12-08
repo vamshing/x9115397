@@ -44,31 +44,39 @@ class GA:
         """
         x_obj_vec = model.function_value(x,model.num_decisions,model.num_objectives)
         return np.sum(x_obj_vec)
-    
+   
+    def min_max(self, box):
+        """
+        Returns the maximum and minimum objective function vectors to calculate hypervolume
+        """
+        max_vector = [np.max([model.function_value(x,model.num_decisions,model.num_objectives)[i] for x in box]) for i in range(model.num_objectives)]
+        min_vector = [np.min([model.function_value(x,model.num_decisions,model.num_objectives)[i] for x in box]) for i in range(model.num_objectives)]
+
+        return max_vector, min_vector
     
     def select(self,box):
         """
+        Selection Operation
         Return the candidate pool for new frontier 80% from child and 20% from random parents
         """
         fr = []
-        
         d = dict()
         
         for i in range(len(box)):
             d[i]  = self.function_agg(box[i])
-            
         sorted_d = sorted(d.items(), key=operator.itemgetter(1),reverse=True)
         
-        for j in range(int(self.num_candidates * .8)):
+        for j in range(int(self.num_candidates * .9)):
             fr.append(box[sorted_d[j][0]])    
         
-        for k in range(int(self.num_candidates * .2)):
+        for k in range(int(self.num_candidates * .1)):
             fr.append(self.frontier[k])
         
         return fr
     
     def crossover(self,parent_1,parent_2,child):
         """
+        Crossover operation
         Picks a random decision, take all dad's decisions up to that point, take alll mum's decisions after that point
         """
         while True:
@@ -80,6 +88,7 @@ class GA:
         
     def mutate(self,child):
         """
+        Mutation operation
         Picks a candidate, returns the random decisions to create a new candidate
         """
         child.randomstate()
@@ -87,7 +96,6 @@ class GA:
         
         
     def penalize_lives(self):
-        
         """
         Type II comparison
         Compares between current frontier and the previous frontier
@@ -99,49 +107,72 @@ class GA:
             for j in xrange(0,len(self.frontier_new)):
                 era_old.append(self.frontier[j][i])
                 era_new.append(self.frontier_new[j][i])
-            if (a12(era_new, era_old) > 0.5):
+            if (a12(era_new, era_old) > 0.4):
                 return 5
         return -1    
     
-                    
+    def inbox(self, pebble, frontier):
+        """
+        Helper function to the Hypervolume
+        """
+        for x in frontier:
+            fun_vector = model.function_value(x,model.num_decisions,model.num_objectives)
+            for i in range(model.num_objectives):
+                if pebble[i] < fun_vector[i]:
+                    return False
+        return True
+
+    def hypervolume(self, frontier, min_vector, max_vector, n=1000):
+        """
+        Calculates the Hypervolume in given size
+        """
+        count = 0.0
+        for i in range(n):
+            pebble = [random.uniform(min_vector[k], max_vector[k]) for k in range(model.num_objectives)]
+            if self.inbox(pebble, frontier):
+                count += 1.0
+        return (count/(n*1.0))
+                   
     def main(self,model):
         
         box =  [model.randomstate() for _ in range(self.num_candidates)]
-        self.base_frontier = box
+        #self.base_frontier = box
         self.frontier = box
+        max_vector, min_vector = self.min_max(box)
         
         for i in range(self.num_generations):
             newbox = []
-            for j in range(self.num_candidates):
-                
+            '''Generation'''
+            for j in range(self.num_candidates):    
                 child = model
                 sample = np.random.randint(0, len(self.frontier), size=2)
                 parent_1 = self.frontier[sample[0]]
                 parent_2= self.frontier[sample[1]]
+                '''Cross-Over'''
                 self.crossover(parent_1,parent_2,child)
+                '''Mutation'''
                 if random.random() < self.mutation_prob :
                     self.mutate(child)
-                    
+                '''New generation'''    
                 newbox.append(child.dec)
                 newbox.append(child.dec_2)
-    
+            '''Selection of the fitttest''' 
             self.frontier_new = []
             self.frontier_new = self.select(newbox)
             self.lives += self.penalize_lives()
-            
+            '''Early termination'''
             if self.lives == 0:
                 break
             
             box = newbox
             self.frontier = self.frontier_new
-            
             print '### Generation:',i,'No. of lives',self.lives
-            
+        '''Best frontier and hypervolume'''    
+        print self.hypervolume(self.frontier_new, min_vector, max_vector)
         return self.frontier_new
 
-
-# In[14]:
-
-model = DTLZ1(4,10)
+models = [DTLZ1,DTLZ3,DTLZ5,DTLZ7]
+model = DTLZ7(4,20)
+decisions = []
 state = model.randomstate()
 GA(model)
