@@ -68,14 +68,14 @@ class DTLZ1:
         while True:
             dec = list()
             for low,high in zip(self.dec_low,self.dec_high):
-                self.dec.append(random.uniform(low,high))
-            if self.ok():
+                dec.append(random.uniform(low,high))
+            if self.ok(dec):
                 break
-        return self.dec
+        return dec
     
-    def ok(self):
+    def ok(self,dec):
         for i in range(0,self.num_decisions):
-            if self.dec[i]<self.dec_low[i] or self.dec[i]>self.dec_high[i]:
+            if dec[i]<self.dec_low[i] or dec[i]>self.dec_high[i]:
                 return False
         return True
 
