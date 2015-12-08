@@ -14,7 +14,7 @@ from DTLZ7 import *
 
 class GA:
     
-    def __init__(self,model,num_candidates = 10,num_generations = 10,mutation_prob = 0.05):
+    def __init__(self,model,num_candidates = 100,num_generations = 100,mutation_prob = 0.05):
         self.num_objectives = model.num_objectives
         self.num_decisions = model.num_decisions
         self.num_candidates = num_candidates
@@ -68,10 +68,10 @@ class GA:
             d[i]  = self.function_agg(box[i])
         sorted_d = sorted(d.items(), key=operator.itemgetter(1),reverse=True)
         
-        for j in range(int(self.num_candidates * .9)):
+        for j in range(int(self.num_candidates * .8)):
             fr.append(box[sorted_d[j][0]])    
         
-        for k in range(int(self.num_candidates * .1)):
+        for k in range(int(self.num_candidates * .2)):
             fr.append(self.frontier[k])
         
         return fr
@@ -124,7 +124,7 @@ class GA:
                     return False
         return True
 
-    def hypervolume(self, frontier, min_vector, max_vector, n=10):
+    def hypervolume(self, frontier, min_vector, max_vector, n=10000):
         """
         Calculates the Hypervolume in given size
         """
