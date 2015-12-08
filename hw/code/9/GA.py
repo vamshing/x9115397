@@ -1,25 +1,18 @@
-
-# coding: utf-8
-
-# In[15]:
-
 import sys
 import random
+import operator
 sys.path
-sys.path.append('/Users/vamshiguduguntla/Documents/Python-Programs/models/')
-
-from models import *
-from models.DTLZ1 import *
-from models.DTLZ3 import *
-from models.DTLZ5 import *
-from models.DTLZ7 import *
+sys.path.append('/Users/vamshiguduguntla/Documents/CSC591/Github/x9115397/hw/code/9/models/')
 from sk import a12
 
-# In[13]:
+from DTLZ1 import *
+from DTLZ3 import *
+from DTLZ5 import *
+from DTLZ7 import *
 
 class GA:
     
-    def __init__(self,model,num_candidates = 100,num_generations = 10,mutation_prob = 0.05):
+    def __init__(self,model,num_candidates = 100,num_generations = 100,mutation_prob = 0.05):
         self.num_objectives = model.num_objectives
         self.num_decisions = model.num_decisions
         self.num_candidates = num_candidates
@@ -45,21 +38,34 @@ class GA:
         return True
     
     
+    def function_agg(self,x):
+        """
+        Returns the aggregate function value
+        """
+        x_obj_vec = model.function_value(x,model.num_decisions,model.num_objectives)
+        return np.sum(x_obj_vec)
+    
+    
     def select(self,box):
         """
-        Return the candidate which has binary dominated candidates in the box
+        Return the candidate pool for new frontier 80% from child and 20% from random parents
         """
         fr = []
-        for x in box:
-            selection = -1
-            for y in box:
-                if self.binary_domination(x,y):
-                    selection = 1
-                    break
-            if selection == 1:
-                fr.append(x)
+        
+        d = dict()
+        
+        for i in range(len(box)):
+            d[i]  = self.function_agg(box[i])
+            
+        sorted_d = sorted(d.items(), key=operator.itemgetter(1),reverse=True)
+        
+        for j in range(int(self.num_candidates * .8)):
+            fr.append(box[sorted_d[j][0]])    
+        
+        for k in range(int(self.num_candidates * .2)):
+            fr.append(self.frontier[k])
+        
         return fr
-    
     
     def crossover(self,parent_1,parent_2,child):
         """
@@ -68,7 +74,8 @@ class GA:
         while True:
             rand_int = random.randint(0,model.num_decisions)
             child.dec = list(np.array(parent_1)[:rand_int])+list(np.array(parent_2)[rand_int:])
-            if child.ok(child.dec):
+            child.dec_2 = list(np.array(parent_1)[rand_int:])+list(np.array(parent_2)[:rand_int])
+            if child.ok(child.dec) and child.ok(child.dec_2):
                 return child
         
     def mutate(self,child):
@@ -100,8 +107,8 @@ class GA:
     def main(self,model):
         
         box =  [model.randomstate() for _ in range(self.num_candidates)]
-        self.base_frontier = self.select(box)
-        self.frontier = self.select(box)
+        self.base_frontier = box
+        self.frontier = box
         
         for i in range(self.num_generations):
             newbox = []
@@ -116,7 +123,8 @@ class GA:
                     self.mutate(child)
                     
                 newbox.append(child.dec)
-            
+                newbox.append(child.dec_2)
+    
             self.frontier_new = []
             self.frontier_new = self.select(newbox)
             self.lives += self.penalize_lives()
@@ -134,12 +142,6 @@ class GA:
 
 # In[14]:
 
-model = DTLZ1(2,10)
+model = DTLZ1(4,10)
 state = model.randomstate()
 GA(model)
-
-
-# In[ ]:
-
-
-

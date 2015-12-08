@@ -40,6 +40,7 @@ class DTLZ1:
         self.dec_high = [1 for _ in range(self.num_decisions)]
         self.dec_low = [0 for _ in range(self.num_decisions)]
         self.dec = []
+        self.dec_2 = []
         self.randomstate()
         
         
