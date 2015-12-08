@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[ ]:
+# In[15]:
 
 import sys
 import random
@@ -14,7 +14,7 @@ from DTLZ5 import *
 from DTLZ7 import *
 
 
-# In[ ]:
+# In[13]:
 
 class GA:
     
@@ -32,6 +32,7 @@ class GA:
         
     def binary_domination(self,x,y):
         """
+        Type I comparison
         Returns whether candidate x dominates candidate y (Binary domination)
         """
         x_obj_vec = model.function_value(x)
@@ -78,7 +79,9 @@ class GA:
         
         
     def penalize_lives(self):
+        
         """
+        Type II comparison
         Compares between current frontier and the previous frontier
         if atleast one is better in the current frontier - dont penalize
         """
@@ -88,6 +91,7 @@ class GA:
                 if self.binary_domination(x,y):
                     return 5
         return self.lives-1
+    
                     
     def main(self,model):
         
@@ -103,9 +107,7 @@ class GA:
                 sample = np.random.randint(0, len(self.frontier), size=2)
                 parent_1 = self.frontier[sample[0]]
                 parent_2= self.frontier[sample[1]]
-                print('before',len(child.dec))
                 self.crossover(parent_1,parent_2,child)
-                print('after',len(child.dec))
                 if random.random() < self.mutation_prob :
                     self.mutate(child)
                     
@@ -117,7 +119,6 @@ class GA:
             
             if self.lives == 0:
                 break
-            print(len(self.frontier),len(self.frontier_new))
             
             box = newbox
             self.frontier = self.frontier_new
@@ -127,7 +128,7 @@ class GA:
         return self.frontier_new
 
 
-# In[ ]:
+# In[14]:
 
 model = DTLZ1(2,10)
 state = model.randomstate()

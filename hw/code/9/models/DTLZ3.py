@@ -40,7 +40,7 @@ class DTLZ3:
         self.num_objectives = num_objectives
         self.dec_high = [1 for _ in range(self.num_decisions)]
         self.dec_low = [0 for _ in range(self.num_decisions)]
-        self.dec = self.randomstate()
+        self.dec = []
         
         
     def g(self,dec):
@@ -70,10 +70,4 @@ class DTLZ3:
                 dec.append(random.uniform(low,high))
             if self.contraint_ok(dec):
                 return dec
-                
-    def ok(self):
-        for i in range(0,self.num_decisions):
-            if self.dec[i]<self.dec_low[i] or self.dec[i]>self.dec_high[i]:
-                return False
-        return True
-    
+

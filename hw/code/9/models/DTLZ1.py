@@ -40,7 +40,7 @@ class DTLZ1:
         self.num_objectives = num_objectives
         self.dec_high = [1 for _ in range(self.num_decisions)]
         self.dec_low = [0 for _ in range(self.num_decisions)]
-        self.dec = self.randomstate()
+        self.dec = []
         
         
     def g(self,dec):
@@ -76,9 +76,4 @@ class DTLZ1:
             if self.dec[i]<self.dec_low[i] or self.dec[i]>self.dec_high[i]:
                 return False
         return True
-
-
-            
-
-
 
