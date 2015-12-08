@@ -26,18 +26,17 @@ __copyright__ = "NA"
 __license__ = "NA"
 __version__ = "NA"
 
-if __name__ == '__main__':
-            
-    era_collection = []
-    text = ["MWS", "SA", "DE"]
-    ct = 0
-    model = DTLZ7(10, 2)
-    i = 0
-    for _ in xrange(0, 20):
-        i += 1
+def run(decs=10,objs=2,iters=20):
+    era_data = []
+    model = DTLZ7(decs, objs)
+    for i in xrange(1,iters+1):
         for optimizer in [MWS, SA, DE]:
             era_val = [model.normalize_val(model.eval(val)) for val in optimizer(model)]
-            era_val.insert(0, text[ct%3] + str(i))
-            era_collection.append(era_val)
-            ct += 1
-    print(rdivDemo(era_collection))
+            era_val.insert(0, str(optimizer.__name__) + str(i))
+            if((i==1)or(i==iters)):
+                era_data.append(era_val)
+    print(rdivDemo(era_data))
+
+if __name__ == '__main__':
+    run(10,2,3)
+    
