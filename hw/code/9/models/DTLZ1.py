@@ -3,6 +3,7 @@
 
 # In[101]:
 
+
 from __future__ import print_function, division
 from time import strftime
 from pprint import pprint
@@ -29,8 +30,6 @@ class DTLZ1:
     :func  g                - scores a candidate on function g
     :func  function_value   - A function that scores a candidate and returns a vector of f
     :func  constraint_ok    - A function that checks for constraints (none of Kursawe and Schaffer)
-
-
     """
     
     def __init__(self,num_objectives,num_decisions,high = 10**6,low = -10**6):
@@ -79,3 +78,19 @@ class DTLZ1:
                 return False
         return True
 
+def g(dec,objs,decs):
+    g = decs - objs+1
+    for i in range(decs - objs+1):
+        g += (dec[i] - 0.5)**2 - math.cos(20 * math.pi * (dec[i] - 0.5))
+    return g*100.    
+        
+def function_value(dec,decs,objs):
+    f = []
+    for i in range(objs):
+        val = (1+g(dec,objs,decs)) * 0.5
+        for x in dec[:objs-(i+1)]:
+            val *= x
+        if i != 0:
+            val=val*(1-dec[objs-i])
+        f.append(val)         
+    return f
