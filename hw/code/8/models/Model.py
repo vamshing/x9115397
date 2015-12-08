@@ -13,7 +13,7 @@ __copyright__ = "NA"
 __license__ = "NA"
 __version__ = "NA"
 
-class BaseModel:
+class Model:
 
     def __init__(self):
         self.model_name = None

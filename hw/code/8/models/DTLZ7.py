@@ -1,7 +1,7 @@
 from __future__ import print_function, division
 from time import strftime
 from pprint import pprint
-from BaseModel import *
+from Model import *
 import math,random
 
 import math,random,copy
@@ -11,11 +11,11 @@ __copyright__ = "NA"
 __license__ = "NA"
 __version__ = "NA"
 
-class DTLZ7(BaseModel):
+class DTLZ7(Model):
 
     def __init__(self, num_dec, num_obj):
-        BaseModel.__init__(self)
-        self.model_name = "DTLZ7"
+        Model.__init__(self)
+        self.model_name = DTLZ7.__name__
         self.number_vars = num_dec
         self.number_obj = num_obj
         self.var_bounds = []
