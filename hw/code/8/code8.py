@@ -39,4 +39,8 @@ def run(decs=10,objs=2,iters=20):
 
 if __name__ == '__main__':
     run(10,2,3)
+<<<<<<< HEAD
     
+=======
+    
+>>>>>>> e0e5c151b1e9b5dd8ead82f2c40e763aa77e447a
