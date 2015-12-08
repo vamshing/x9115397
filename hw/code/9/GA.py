@@ -9,11 +9,11 @@ sys.path
 sys.path.append('/Users/vamshiguduguntla/Documents/Python-Programs/models/')
 
 from models import *
-from models.DTLZ1 import DTLZ1
+from models.DTLZ1 import *
 from models.DTLZ3 import *
 from models.DTLZ5 import *
 from models.DTLZ7 import *
-
+from sk import a12
 
 # In[13]:
 
@@ -36,7 +36,6 @@ class GA:
         Type I comparison
         Returns whether candidate x dominates candidate y (Binary domination)
         """
-        print(x)
         x_obj_vec = model.function_value(x,model.num_decisions,model.num_objectives)
         y_obj_vec = model.function_value(y,model.num_decisions,model.num_objectives)
         
@@ -87,14 +86,15 @@ class GA:
         Compares between current frontier and the previous frontier
         if atleast one is better in the current frontier - dont penalize
         """
-        print("new frontier",self.frontier_new[1])
-        exit()
-        for x in self.frontier_new:
-            penalty = -1
-            for y in self.frontier:
-                if self.binary_domination(x,y):
-                    return 5
-        return self.lives-1
+        for i in xrange(0,model.num_objectives):
+            era_old=[]
+            era_new=[]
+            for j in xrange(0,len(self.frontier_new)):
+                era_old.append(self.frontier[j][i])
+                era_new.append(self.frontier_new[j][i])
+            if (a12(era_new, era_old) > 0.5):
+                return 5
+        return -1    
     
                     
     def main(self,model):
@@ -119,7 +119,7 @@ class GA:
             
             self.frontier_new = []
             self.frontier_new = self.select(newbox)
-            self.lives = self.penalize_lives()
+            self.lives += self.penalize_lives()
             
             if self.lives == 0:
                 break
