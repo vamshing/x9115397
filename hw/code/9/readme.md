@@ -165,17 +165,17 @@ Interpreting the results:
 
 - **Early termination**: may prevent optimizers to reach a globally optimum solution. However for efficency reasons, early termination may be required.
 - **Different Search spaces**: these optimizers should be evaluated in according to the search space each of them has explored.
-- **Early convergence* on some models was noticed. This could be controlled by both  mutation probability and the proportion of child -parent selection mix.In our algorithm, the mutation rate is a constant throughout the run.
+- **Early convergence** on some models was noticed. This could be controlled by both  mutation probability and the proportion of child -parent selection mix.In our algorithm, the mutation rate is a constant throughout the run.
 - **Aggregating Objectives**: By objective function values to a point form and performing operations, we fail to recognize the accuracy on results. I have used the aggregation over the domination score for faster computation of the solutions space. However, this can be viewed as a threat as functions cannot always be aggregated. Domination score is preferred for accurate results.
 -  **Slow convergence** leads to more computing power demand. Hence, some of the ways like Aggregating Objectives was used to work around this problem. 
 
 ####vii. Scope of future work:
 
-**Tuning the parameters **: There are number of parameters which can be tuned to stop early and slow convergence/termination. We have noticed that the hypervolume for early terminations are quite low. Tuning some the magic parameters ensured that the termination is delayed, hence more exploration of the search space. Few of them are mutation probability, number of candidates, a12 test criteria, proportion of parent-child selection.
+**Tuning the parameters**: There are number of parameters which can be tuned to stop early and slow convergence/termination. We have noticed that the hypervolume for early terminations are quite low. Tuning some the magic parameters ensured that the termination is delayed, hence more exploration of the search space. Few of them are mutation probability, number of candidates, a12 test criteria, proportion of parent-child selection.
 
-**Boolean domination **: Boolean domination has its own drawbacks and hence the idea of continuous domination as a part of the select procedure could be explored.
+**Boolean domination**: Boolean domination has its own drawbacks and hence the idea of continuous domination as a part of the select procedure could be explored.
 
-**Aggregation of function vector **: Improve the aggregation method of function vector by trying out different strategies such as weighted-sum approach and target vector optimization methods[2]
+**Aggregation of function vector**: Improve the aggregation method of function vector by trying out different strategies such as weighted-sum approach and target vector optimization methods[2]
 
 
 ####viii. Reference: 
