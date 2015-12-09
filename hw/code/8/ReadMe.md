@@ -19,12 +19,69 @@ The purpose of the paper is to rank the performance of each of three algorithms:
 
 Simulated annealing, thus exploits  the nexus between thermo- dynamic behavior and the search for global minima for a discrete optimization problem. 
 
+We followed the following Pseudo Code in our implementation:
+
+## Code
+
+SA is often
+used in SBSE, perhaps due to its simplicity. Here's
+the whole code:
+
++ Let _k_ be some temperature constant that is varied 1 to _kmax_ 
+      + So _k / kmax_ is some number 0..1 representing the 
+        extent of the current search.
++ Let _s_ be a _solution_ (a list of numbers) with energy _e_.
++ Let _sn_ be the next solution with energy _en_.
++ Let _sb_, _se_ be best solution and energy yet found.
++ Let _emax_ be "enough" energy. Usually, max possible minus
+  some _epsilon_ vale.
+
+Code:
+
+    s := s0; e := E(s)                  // Initial state, energy.
+    sb := s; eb := e                    // Initial "best" solution
+    k := 0                              // Energy evaluation count.
+    WHILE k < kmax and e > emax         // While time remains & not good enough:
+      sn := neighbor(s)                 //   Pick some neighbor.
+      en := E(sn)                       //   Compute its energy.
+      IF    en < eb                     //   Is this a new best?
+      THEN  sb := sn; eb := en          //     Yes, save it.
+	        print "!"
+      FI
+	  IF    en < e                      // Should we jump to better?
+	  THEN  s := sn; e := en            //    Yes!
+	        print "+"                        
+      FI
+      ELSE IF P(e, en, k/kmax) < rand() // Should we jump to worse?
+      THEN  s := sn; e := en            //    Yes, change state.
+	        print "?"
+      FI
+	  print "."
+      k := k + 1                        //   One more evaluation done    
+      if k % 50 == 0: print "\n",sb
+    RETURN sb                           // Return the best solution found.
+
 **ii2. Max Walk Sat** : Max Walk Sat works by  analyzing the landscape of the data. It inherits from Simulated Annealing by to avoid local minima by making jumps to random points. 
 
 - Define maximum number of tries and changes, and the number of iterations for which the runs without early termination are met. Creating instances and shuffling it with the best instance to finally store the best energy seen so far is the next step.
 - With a set probability checks are preformed to see if the generated random value is lesser. Then, decision is picked at random and changed which would remain unchanged or else.
 
 MWS argues about the shape of the search space importance.
+
+We followed the following Pseudo Code in our implementation:
+
+    FOR i = 1 to max-tries DO
+      solution = random assignment
+      FOR j =1 to max-changes DO
+        IF  score(solution) > threshold
+            THEN  RETURN solution
+        FI
+        c = random part of solution 
+        IF    p < random()
+        THEN  change a random setting in c
+        ELSE  change setting in c that maximizes score(solution) 
+        FI
+    RETURN failure, best solution found
 
 **ii3. Differential Evolution** : Differential Evolution emulates genetic algorithms,which like all of them does not guarantee an optimal solution always. 
 
@@ -33,6 +90,15 @@ MWS argues about the shape of the search space importance.
 - Replacement is done, if the new child  is has lower energy/close to objective than the previous one. The process continues until a threshold is reached.
 
 DE has the advantaghe of giving good solutions quickly compared to other algorithms.
+
+We followed the following Pseudo Code in our implementation:
+
+At each step of the iteration from the frontier we
+1. pick 3 candidate solutions at random-X,Y,Z
+2. At a given *crossover factor* we will generate a new candidate solutions by the below formulation
+    New = X+cf*(Y-Z)
+3. If the new solution proves to be better than the current candidate solution, we replace the latter in the frontier.
+
 
 ####iii. Statistical Machinary used
 
