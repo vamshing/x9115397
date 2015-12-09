@@ -1,6 +1,3 @@
-![screen shot 2015-12-07 at 10 32 07 pm](https://cloud.githubusercontent.com/assets/8950958/11670361/694d2624-9dcf-11e5-800b-82123ebe4f2a.png)
-
-
 ## Comparing  Optimizers: Differential Evolution, Simulated annealing and MaxWalkSat
 
 ####i. Abstract
@@ -23,7 +20,7 @@ We followed the following Pseudo Code in our implementation:
 
 ## Code
 
-SA is often
+**ii1. SA** :SA is often
 used in SBSE, perhaps due to its simplicity. Here's
 the whole code:
 
@@ -102,6 +99,11 @@ At each step of the iteration from the frontier we
 
 3. If the new solution proves to be better than the current candidate solution, we replace the latter in the frontier.
 
+**ii4. DTLZ7** : We used the a DTLZ7 model with 2 Objectives and 10 Decisions. We used the below formula to compute the objectives.
+
+![screen shot 2015-12-08 at 9 34 22 pm](https://cloud.githubusercontent.com/assets/8950958/11674956/9b02ddf2-9df3-11e5-8519-d0356a0e432a.png)
+
+We performed 20 iterations for each of SA,MWS and DE on DTLZ7 before performing a Type 3 comparison on the final eras for each of the first and last generation of each optimiser.
 
 ####iii. Statistical Machinary used
 
@@ -115,16 +117,32 @@ This comparator is used to compare two candidate solutions. Used when the optimi
 
 **iii3. Type 2:**
 
-This comparator is used to compare two candidate solutions. Used when the optimizers are comparing pairs of candidates as each of the optimizers generate solutions.
+This comparator is used to compare two eras of candidate solutions. In our implementation we performed this comaprison between the current era and the previous era. If there was no improvement in the solution we reduce a life thus bringing the operation closer to an early termination. To do this part we used the *a12* implementation of *Dr. Tim Menzies* presented as part of *sk.py*.
 
-####iv. Future Work: 
+**iii4. Type 3:**
+
+This comparator will compare the last generation for each of the optimisers by comparing the objective scores for each of the candidates present in the final era. We collated the final eras for the first and the final iteration for each of SA,MWS and DE and fed the input to the *rdivDemo* implementation of  *Dr. Tim Menzies* presented as part of *sk.py* which presented us a statistical ranking of the models.
+
+
+####iv. Results:
+
+Below is the result obtained from the above operation.
+
+![screen shot 2015-12-07 at 10 32 07 pm](https://cloud.githubusercontent.com/assets/8950958/11670361/694d2624-9dcf-11e5-800b-82123ebe4f2a.png)
+
+####v. Conclusion
+
+Based on our results we came upon the conclusion that DE gives the best result, followed by SA and then followed by MWS.
+
+
+####vi. Future Work: 
 
 This experimentation has been performed on a single model that is DTLZ7 with 2 objectives and 10 decisions. 
 - This evaluation can be expanded to include more models with varying number of objectives,decisions be it continuous or discrete. 
 - In the future models will different kinds of requirements can be explored to give a more complete evaluation of the optimizers.
 - The population size can be increased to have a larger spread of candidates.
 
-####v. Threats to validity: 
+####vii. Threats to validity: 
 
 - **Early termination**: may prevent optimizers to reach a globally optimum solution. However for efficency reasons, early termination may be required.
 - **Different Search spaces**: these optimizers should be evaluated in according to the search space each of them has explored.
@@ -132,10 +150,12 @@ This experimentation has been performed on a single model that is DTLZ7 with 2 o
 
 
 
-####vi. Reference: 
+####viii. Reference: 
 
 1. Jelihovschi, E.G., Faria, J.C., & Allaman, I.B.. (2014). ScottKnott: a package for performing the Scott-Knott clustering algorithm in R. TEMA (São Carlos), 15(1), 3-17.
 
 2. [A12 comparison implementation](https://github.com/txt/mase/blob/master/src/doc/sk.py)   
 
-3. Storn, R. (1996). "On the usage of differential evolution for function optimization". Biennial Conference of the North American Fuzzy Information Processing Society (NAFIPS). pp. 519-523.
+3. [rdivDemo comparison implementation](https://github.com/txt/mase/blob/master/src/doc/sk.py)  
+
+4. Storn, R. (1996). "On the usage of differential evolution for function optimization". Biennial Conference of the North American Fuzzy Information Processing Society (NAFIPS). pp. 519-523.
