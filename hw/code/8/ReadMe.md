@@ -94,9 +94,12 @@ DE has the advantaghe of giving good solutions quickly compared to other algorit
 We followed the following Pseudo Code in our implementation:
 
 At each step of the iteration from the frontier we
+
 1. pick 3 candidate solutions at random-X,Y,Z
+
 2. At a given *crossover factor* we will generate a new candidate solutions by the below formulation
     New = X+cf*(Y-Z)
+
 3. If the new solution proves to be better than the current candidate solution, we replace the latter in the frontier.
 
 
