@@ -1,4 +1,4 @@
-## Comparing  Optimizers: Differential Evolution, Simulated annealing and MaxWalkSat
+## Implementing a Genetic Algorithm for optimizing DTLZ1,3,5,7
 
 **By :** Guduguntla Vamshi & Sattwik Pati
 
