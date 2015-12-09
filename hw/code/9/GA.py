@@ -14,7 +14,7 @@ from DTLZ7 import *
 
 class GA:
     
-    def __init__(self,model,num_candidates = 100,num_generations = 100,mutation_prob = 0.05):
+    def __init__(self,model,num_candidates = 100,num_generations = 1000,mutation_prob = 0.05):
         self.num_objectives = model.num_objectives
         self.num_decisions = model.num_decisions
         self.num_candidates = num_candidates
