@@ -62,30 +62,17 @@ class DTLZ7:
             if dec[i]<self.dec_low[i] or dec[i]>self.dec_high[i]:
                 return False
         return True
-    
-        
-def g(dec,objs,decs):
-    k = decs - objs+1
-    g = 1. + (((9.)/(k)) * np.sum(dec[:objs]))
-    return g
-    
-def h(dec,objs,decs):
-    h = objs
-    for i in range(objs-1):
-        h -= (dec[i]/(1 + g(dec,objs,decs))) * (1 + math.sin(3 * math.pi * dec[i]))        
-    return h
 
     
 def function_value(dec,objs,decs):
     f = []
     
-    for i in range(objs):
-        val = 0.0
-        if i == objs - 1:
-            val += (1+g(dec,objs,decs)) * h(dec,objs,decs)
-        else:
-            val += dec[i]
-        f.append(val)         
+    g=1+9/(decs-objs+1)*np.sum(dec[objs-1:])
+    h=objs
+    for i in range(objs-1):
+        f.append(dec[i])
+        h=h-f[i]/(1+g)*(1+np.sin(3*np.pi*f[i]))
+    f.append((1+g)*h)
     return f
  
         
