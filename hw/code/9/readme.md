@@ -167,7 +167,7 @@ Interpreting the results:
 - **Different Search spaces**: these optimizers should be evaluated in according to the search space each of them has explored.
 - **Early convergence* on some models was noticed. This could be controlled by both  mutation probability and the proportion of child -parent selection mix.In our algorithm, the mutation rate is a constant throughout the run.
 - **Aggregating Objectives**: By objective function values to a point form and performing operations, we fail to recognize the accuracy on results. I have used the aggregation over the domination score for faster computation of the solutions space. However, this can be viewed as a threat as functions cannot always be aggregated. Domination score is preferred for accurate results.
--  **Slow convergence** leads to more computing power demand. Hence, some of the hacky ways like **Aggregating Objectives** was used to work around this problem. 
+-  **Slow convergence** leads to more computing power demand. Hence, some of the ways like Aggregating Objectives was used to work around this problem. 
 
 ####vii. Scope of future work:
 
@@ -176,11 +176,6 @@ Interpreting the results:
 **Boolean domination **: Boolean domination has its own drawbacks and hence the idea of continuous domination as a part of the select procedure could be explored.
 
 **Aggregation of function vector **: Improve the aggregation method of function vector by trying out different strategies such as weighted-sum approach and target vector optimization methods[2]
-
-- **Different Search spaces**: 
-- **Early convergence* 
-- **Aggregating Objectives**: 
--  **Slow convergence** 
 
 
 ####viii. Reference: 
