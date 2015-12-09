@@ -141,25 +141,27 @@ Evualuation metrics: **Hypervolume**
 
 |Objectives\Decisions|10|20|40|
 |:---:|---|---|---|
-|2|Mean = 0.995274<br/>SD = 0.000746|Mean = 0.995741<br/>SD = 0.000963|Mean = 0.997400<br/>SD = 0.000815|
-|4|Mean = 0.995776<br/>SD = 0.001137|Mean = 0.995550<br/>SD = 0.000773|Mean = 0.997280<br/>SD = 0.000778|
-|6|Mean = 0.995050<br/>SD = 7.46e-05|Mean = 0.996299<br/>SD = 0.001378|Mean = 0.997431<br/>SD = 0.000945|
-|8|Mean = 0.995254<br/>SD = 0.000502|Mean = 0.995826<br/>SD = 0.001129|Mean = 0.997483<br/>SD = 0.000549|
+|2|Mean = 0.72765<br/>SD = 0.290661878305|Mean = 0.4666<br/>SD = 0.257918863211|Mean = 0.4964<br/>SD = 0.213691225838|
+|4|Mean = 0.91345<br/>SD = 0.190140862257|Mean = 0.2239<br/>SD = 0.184958616993|Mean = 0.29865<br/>SD = 0.258244511074|
+|6|Mean = 0.7876<br/>SD = 0.290070577619|Mean = 0.2885<br/>SD = 0.293228153491|Mean =  0.1202<br/>SD = 0.168165870497|
+|8|Mean = 0.8595<br/>SD = 0.252177417704|Mean = 0.24345<br/>SD = 0.325197243992|Mean = 0.18305<br/>SD = 0.279935077295|
 
 **DTLZ7**
 
 |Objectives\Decisions|10|20|40|
 |:---:|---|---|---|
-|2|Mean = 0.995274<br/>SD = 0.000746|Mean = 0.995741<br/>SD = 0.000963|Mean = 0.997400<br/>SD = 0.000815|
-|4|Mean = 0.995776<br/>SD = 0.001137|Mean = 0.995550<br/>SD = 0.000773|Mean = 0.997280<br/>SD = 0.000778|
-|6|Mean = 0.995050<br/>SD = 7.46e-05|Mean = 0.996299<br/>SD = 0.001378|Mean = 0.997431<br/>SD = 0.000945|
-|8|Mean = 0.995254<br/>SD = 0.000502|Mean = 0.995826<br/>SD = 0.001129|Mean = 0.997483<br/>SD = 0.000549|
+|2|Mean = 0.94777<br/>SD = 0.088871508933|Mean = 0.86756<br/>SD = 0.104653606722|Mean = 0.92600<br/>SD = 0.107422916549|
+|4|Mean = 0.963546<br/>SD = 0.027805096655|Mean = 0.96158<br/>SD = 0.027809384657|Mean = 0.96658<br/>SD = 0.027013766861|
+|6|Mean = 0.98656<br/>SD = 0.007133685934|Mean = 0.98901<br/>SD = 0.006684644718|Mean = 0.98906<br/>SD = 0.005996121663|
+|8|Mean = 0.99803<br/>SD = 0.002075782985|Mean = 0.995826<br/>SD = 0.001599187294|Mean = 0.99699<br/>SD =0.001899809201|
 
 Interpreting the results:
 
 - Hypervolume is good enough on DTLZ1,3, but sparser on DTLZ5,7.
 - Hypervolume on DTLZ3 increases as number of objectives & decisions increase.
 - performance (measured by hypervolumn) decreases as number of objectives increase.
+- Hypervolume on DTLZ5 decreases as number of  decisions increase.
+- DTLZ7 has shown consistent performance on the hypervolume metric over decisions and objectives.
 
 ####vi. Threats to validity: 
 
