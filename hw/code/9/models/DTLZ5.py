@@ -62,13 +62,7 @@ class DTLZ5:
             if dec[i]<self.dec_low[i] or dec[i]>self.dec_high[i]:
                 return False
         return True
-                
-        
-def g(dec,objs,decs):
-    g = 0.
-    for i in range(decs - objs+1):
-        g += (dec[i] - 0.5)**2
-    return g
+
     
 def function_value(dec,objs,decs):
     f = []
@@ -93,19 +87,4 @@ def function_value(dec,objs,decs):
         f.append(tmp)
     
     return f
-        
-    """f = []
-    theta = []
-    for x in dec[1:objs-1]:
-        theta.append(((math.pi)/(4*(1+g(dec,objs,decs))))*(1 + 2*g(dec,objs,decs)*x))
-    
-    
-    for i in range(objs):
-        val = (1+g(dec,objs,decs))
-        for x in theta[:objs-(i+1)]:
-            val *= math.cos(x * math.pi * 0.5)
-        if i != 0:
-            val *= val*(math.sin(theta[objs-(i+1)] * math.pi * 0.5))
-        f.append(val)         
-    return f"""
         
