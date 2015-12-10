@@ -4,12 +4,13 @@ from pprint import pprint
 from type2 import type2
 import math,random,copy
 from models import *
+from GA import *
 
 def DE(model):
 
     def build_frontier():
         new_frontier = []
-        for _ in xrange(100):
+        for _ in xrange(10):
             neighbor = model.get_neighbor()
             while model.okay(neighbor) is False:
                 neighbor = model.get_neighbor()
@@ -20,7 +21,7 @@ def DE(model):
     def get_frontier_neighbors(cur):
         seen = []
         while len(seen) < 3:
-            rand_index = random.randint(0, 99)
+            rand_index = random.randint(0, 9)
             if rand_index == cur:
                 continue
             if rand_index not in seen:
@@ -41,16 +42,17 @@ def DE(model):
     
 
 
-    print("Model Name : " + model.model_name + ", Optimizer : differential evolution")
+    print("Model Name : " + 'Genetic Algorithm on DTLZ5(2,10)' + ", Optimizer : differential evolution")
     frontier = build_frontier()
-    e = model.eval(frontier[0])
+    print('Built the frontier',len(frontier))
+    e = compute_score(frontier[0])
     best_sol = frontier[0]
     
     eras = 5
     previous_era = []
     current_era = []
 
-    k_max = 100000
+    k_max = 100
     k = 0
     cf = 0.3
     threshold = 0
@@ -58,38 +60,39 @@ def DE(model):
     while k < k_max:
         output = ""
         
-        if model.normalize_val(e) == threshold:
-            break
 
         for i, solution in enumerate(frontier):
             seen = get_frontier_neighbors(i)
             mutation = frontier[seen[0]]
-            cur_e = model.eval(solution)
+            cur_e = compute_score(solution)
             out = "."
             if cf < random.random():
-                if model.type1(mutation, solution):
-                    cur_e = model.eval(mutation)
-                    frontier[i] = mutation
-                    out += "+"
+                #if model.type1(mutation, solution):
+                cur_e = compute_score(mutation)
+                frontier[i] = mutation
+                out += "+"
+         
             else:
                 mutation = get_mutation(seen)
-                if model.okay(mutation) and model.type1(mutation, solution):
-                    frontier[i] = mutation
-                    cur_e = model.eval(mutation)
-                    out = "+"
+                #if model.okay(mutation) and model.type1(mutation, solution):
+                frontier[i] = mutation
+                cur_e = model.eval(mutation)
+                out = "+"
                         
-            if model.type1(solution, best_sol) and model.normalize_val(cur_e) >= threshold:
+                """
+                if model.type1(solution, best_sol) and model.normalize_val(cur_e) >= threshold:
                 out = "?"
                 e = cur_e
                 best_sol = frontier[i]
-                
+                """
+               
             output += out
             k += 1
-            if k % 25 is 0:
+            if k % 5 is 0:
                 # print ("%.5f,  %20s" % (model.normalize_val(e), output))
                 output = ""
                 
-            if k % 100 is 0 and k is not 0:
+            if k % 20 is 0 and k is not 0:
                 if len(previous_era) is not 0:
                     eras += type2(current_era, previous_era, model)
                     
@@ -101,4 +104,5 @@ def DE(model):
             if eras == 0:
                 print("Early Termination " + str(k) + " : " + str(eras))
                 return previous_era
+        print(k) 
     return previous_era

@@ -3,28 +3,27 @@ import random
 import operator
 import time
 import datetime
-sys.path
-sys.path.append('/Users/vamshiguduguntla/Desktop/CSC591/Github/x9115397/hw/code/9/models/')
+#sys.path
+#sys.path.append('/Users/vamshiguduguntla/Desktop/CSC591/Github/x9115397/hw/code/9/models/')
 from sk import a12
-
-from DTLZ1 import *
-from DTLZ3 import *
 from DTLZ5 import *
-from DTLZ7 import *
+
+model =  DTLZ5(2,10)
 
 class GA:
     
-    def __init__(self,model,num_candidates = 100,num_generations = 100,mutation_prob = 0.05):
+    def __init__(self,model,num_candidates,mutation_prob,selection_rate,num_generations = 100):
         self.num_objectives = model.num_objectives
         self.num_decisions = model.num_decisions
-        self.num_candidates = num_candidates
+        self.num_candidates = int(num_candidates)
         self.num_generations = num_generations
         self.mutation_prob = mutation_prob
+        self.selection_rate = selection_rate
         self.lives = 5
         self.frontier = []
         self.frontier_new = []
         self.base_frontier = []
-        self.main(model)
+        self.main()
         
     def binary_domination(self,x,y):
         """
@@ -68,10 +67,10 @@ class GA:
             d[i]  = self.function_agg(box[i])
         sorted_d = sorted(d.items(), key=operator.itemgetter(1))
         
-        for j in range(int(self.num_candidates * .8)):
+        for j in range(int(self.num_candidates * (self.selection_rate))):
             fr.append(box[sorted_d[j][0]])    
         
-        for k in range(int(self.num_candidates * .2)):
+        for k in range(int(self.num_candidates * (1 - self.selection_rate))):
             fr.append(self.frontier[k])
         
         return fr
@@ -124,7 +123,7 @@ class GA:
                     return False
         return True
 
-    def hypervolume(self, min_vector, max_vector, n=1000):
+    def hypervolume(self, min_vector, max_vector, n=100):
         """
         Calculates the Hypervolume in given size
         """
@@ -136,7 +135,7 @@ class GA:
                 count += 1.0
         return (count/(n*1.0))
                    
-    def main(self,model):
+    def main(self):
         
         box =  [model.randomstate() for _ in range(self.num_candidates)]
         #self.base_frontier = box
@@ -175,28 +174,22 @@ class GA:
         hv = self.hypervolume(min_vector, max_vector)
         return [hv,i]
 
-if __name__ == '__main__':
+
+def compute_score(dec):    
     
-    models = [DTLZ1,DTLZ3,DTLZ5,DTLZ7]
-    model_text = ["DTLZ1", "DTLZ3", "DTLZ5", "DTLZ7"]
-    objectives = [2,4,6,8]
-    decisions =  [10,20,40]
-    baseline = 20
-
-    for model_type, text in zip(models, model_text):
-        print '**',datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'),'**'
-        print '**Optimizing**',model_type
-        print '--------Baseline Study for :',baseline,'simulations--------'
-        print '\n'
-        for decs in decisions:
-            for objs in objectives:
-                print 'Decisions : ',decs,'Objectives: ',objs
-                result = [] 
-                for i in range(baseline):
-                    model =  model_type(objs, decs)
-                    result.append(GA(model).main(model))
-
-                print 'Mean Hypervolume: ',np.mean([result[_][0] for _ in range(len(result))])
-                print 'SD   Hypervolume: ',np.std([result[_][0] for _ in range(len(result))])
-                print 'Mean Generations: ',int(np.mean([result[_][1] for _ in range(len(result))]))
-                print '\n'
+    baseline = 2
+    #print '**',datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S'),'**'
+    #print '--------Baseline Study for :',baseline,'simulations--------'
+    #print '\n'
+    result = [] 
+    for i in range(baseline):
+        result.append(GA(model,dec[0],dec[1],dec[2]).main())
+    
+    #print(dec)
+    f = []
+    f.append(np.mean([result[_][0] for _ in range(len(result))]))    
+    return f
+    #print '\n'
+    
+    
+#get_objective([10,.05,.7])

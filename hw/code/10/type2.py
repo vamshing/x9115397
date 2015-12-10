@@ -5,6 +5,7 @@ from models import *
 from sk import a12
 from sk import rdivDemo
 import math,random
+from GA import *
 
 import math,random,copy
 
@@ -18,8 +19,8 @@ def type2(era_one, era_two, model):
         era_one_objective = []
         era_two_objective = []
         for i in xrange(0, len(era_one)):
-            era_one_objective.append(objective(era_one[i]))
-            era_two_objective.append(objective(era_two[i]))
+            era_one_objective.append(compute_score(era_one[i]))
+            era_two_objective.append(compute_score(era_two[i]))
         if (a12(era_one_objective, era_two_objective) > 0.56):
             return 5
     return -1

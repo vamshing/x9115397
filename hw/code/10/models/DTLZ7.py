@@ -1,83 +1,57 @@
-
-# coding: utf-8
-
-# In[130]:
-
 from __future__ import print_function, division
 from time import strftime
 from pprint import pprint
-import math,random,numpy as np
+from Model import *
+import math,random
 
-__author__ = 'Vamshi Guduguntla'
+import math,random,copy
+
+__author__ = "Sattwik Pati aka ICE!V!an"
 __copyright__ = "NA"
 __license__ = "NA"
-__version__ = "1.0"
+__version__ = "NA"
 
+class DTLZ7(Model):
 
-class DTLZ7:
-    
-    """
-    DTLZ7 with M objectives N decisions.
-    
-    :param num_decisions    - Number of decisions/dimension of the array
-    :param num_objectives   - Number of objectives to evaluate (f1,f2,....)
-    :param dec_high         - Max range of the decision
-    :param dec_low          - Min range of the decision
-    :param obj_high         - Max range of the objective
-    :param obj_low          - Min range of the objective
-    :param evals            - Keeps the track of the number of evaluations
-    :func  g                - scores a candidate on function g
-    :func  function_value   - A function that scores a candidate and returns a vector of f
-    :func  constraint_ok    - A function that checks for constraints (none of Kursawe and Schaffer)
-
-
-    """
-    
-    def __init__(self,num_objectives,num_decisions,high = 10**6,low = -10**6):
+    def __init__(self, num_dec, num_obj):
+        Model.__init__(self)
+        self.model_name = DTLZ7.__name__
+        self.number_vars = num_dec
+        self.number_obj = num_obj
+        self.var_bounds = [(1,20),(0.0,1.0),(0.0,1.0)]
+        self.baselines()
         
-        self.name = "DTLZ7"
-        self.num_decisions = num_decisions
-        self.num_objectives = num_objectives
-        self.dec_high = [1 for _ in range(self.num_decisions)]
-        self.dec_low = [0 for _ in range(self.num_decisions)]
-        self.dec = []
-        self.dec_2 = []
-        self.randomstate()
+    def eval(self, x):
+        energy = 0
+        for obj in self.get_objectives():
+            energy += obj(x)
+        return energy
+    
+    def gx(self, x):
+        y = 0.0
+        for i in xrange(0, self.number_vars):
+            y += x[i]
+        return(9*y/self.number_vars)
         
-    def function_value(self,dec,decs,objs):
-        f = function_value(dec,decs,objs)
+    def hx(self, f, g, x):
+        y = 0.0
+        for i in xrange(0, self.number_obj - 1):
+            y += (f[i](x) / (1 + g)) * (1 + math.sin(3 * math.pi * f[i](x)))
+        return self.number_obj - y
+
+    def last_obj(self, x, f):
+          g = 1 + self.gx(x)
+          res = (1 + g) * self.hx(f, g, x)
+          return res
+
+    def obj(self, x, i):
+        return x[i]
+
+    def get_objectives(self):
+        f = [None] * self.number_obj
+        
+        for i in xrange(0, self.number_obj - 1):
+            f[i] = lambda x : self.obj(x, i)
+            
+        f[self.number_obj - 1] = lambda x : self.last_obj(x,f)
         return f
-    
-    def randomstate(self):
-        while True:
-            dec = list()
-            for low,high in zip(self.dec_low,self.dec_high):
-                dec.append(random.uniform(low,high))
-            if self.ok(dec):
-                break
-        return dec
-        
-    def ok(self,dec):
-        for i in range(0,self.num_decisions):
-            if dec[i]<self.dec_low[i] or dec[i]>self.dec_high[i]:
-                return False
-        return True
-
-    
-def function_value(dec,objs,decs):
-    f = []
-    
-    g=1+9/(decs-objs+1)*np.sum(dec[objs-1:])
-    h=objs
-    for i in range(objs-1):
-        f.append(dec[i])
-        h=h-f[i]/(1+g)*(1+np.sin(3*np.pi*f[i]))
-    f.append((1+g)*h)
-    return f
- 
-        
-    
-    
-
-
-
