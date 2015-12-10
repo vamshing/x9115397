@@ -101,16 +101,28 @@ For each objective do
 
 - DTLZ5 with 2 objections and 10 decisions
 
-**iv2. Apparatus:**
+**iv2. Apparatus: **
 
+**Genetic Algorithm**
 - Genetic Algorithm on DTLZ5 with 2 objections and 10 decisions
 - Number of maximum generations: 100
-- Number of decision: 10
+- Number of decisions: 10
 - Number of objectives:  2
 - Crossover: one point two children
 - Repeat 20 times for each
 - Early termination: life = 5, each new generation, if not better, life=life-1; else, award 5 lives
 - Terminate when life = 0
+
+**Differential Evolution**
+- Frontier size = 100
+- Cross-over parameter = 0.3    
+- Number of lives: 5
+- Checks for early termination every:  20 iterations
+- Life awards for good solution: 5
+- Repeat 20 times for each
+- Early termination: life = 5, each new generation, if not better, life=life-1; else, award 5 lives
+- Terminate when life = 0 
+
 
 **iv3. Choice of tuning parameters:**
 
@@ -132,19 +144,24 @@ Evualuation metrics: **Hypervolume**
 
 **DTLZ5**
 
-|Runs\Type|Untuned|Tuned|Winner|
-|:---:|---|---|---|
-|1|Mean = 0.995274|Mean = 0.995741|Tuned|
-|2|Mean = 0.995776|Mean = 0.995550|Tuned|
-|3|Mean = 0.995050|Mean = 0.996299|Tuned|
-|4|Mean = 0.995254|Mean = 0.995826|Tuned|
-|5|Mean = 0.995274|Mean = 0.995741|Tuned|
-|6|Mean = 0.995776|Mean = 0.995550|Tuned|
-|7|Mean = 0.995050|Mean = 0.996299|Tuned|
-|8|Mean = 0.995254|Mean = 0.995826|Tuned|
+| Runs\Type   | Untuned-mean-HV | Untuned-parameters(a,b,c) | Tuned-mean-HV | Tuned-parameters(a,b,c)       | Improvement in Hypervolume | Time taken to execute |
+|-------------|-----------------|---------------------------|---------------|-------------------------------|----------------------------|-----------------------|
+| DTLZ5(2,10) | 0.7222          | 10,0.8,0.05               | .9972         | 11,0.816,0.82                 | 0.28                       | 400 sec               |
+| DTLZ5(2,10) | 0.78            | 10,0.8,0.05               | 1.0           | 6, 0.0717, 0.9456883760551309 | 0.22                       | 168 sec               |
+| DTLZ5(2,10) | 0.745           | 10,0.8,0.05               | 1.0           | 19, 0.213077, 0.89679         | 0.26                       | 201 sec               |
+| DTLZ5(2,10) | 0.755           | 10,0.8,0.05               | 0.9899        | 4, 0.937, 0.926158            | 0.23                       | 402 sec               |
+| DTLZ5(2,10) | 0.685           | 10,0.8,0.05               | 1.0           | 10,0.84033353, 0.61367        | 0.32                       | 265 sec               |
+| DTLZ5(2,10) | 0.7199          | 10,0.8,0.05               | 1.0           | 13, 0.1775, 0.71109           | 0.28                       | 289 sec               |
+| DTLZ5(2,10) | 0.699           | 10,0.8,0.05               | 1.0           | 3, 0.937, 0.926               | 0.3                        | 375 sec               |
+| DTLZ5(2,10) | 0.810           | 10,0.8,0.05               | 1.0           | 14, 0.177, 0.71               | 0.19                       | 277 sec               |
+| DTLZ5(2,10) | 0.7249          | 10,0.8,0.05               | 0.995         | 4, 0.14, 0.09                 | 0.27                       | 108 sec               |
+| DTLZ5(2,10) | 0.68            | 10,0.8,0.05               | 0.998         | 11, 0.84 0.6136               | 0.31                       | 455 sec               |
 
 Interpreting the results:
 
+- On an average, there was an improvement of 0.28 in the hypervolume by fine-tuning the parameters using DE.
+- Different combination of the a,b,c are used to arrive at the optimal solution for the given model.
+- The run times are given to estimate the time taking to run this setting with given configuration.
 
 ####vi. Threats to validity: 
 
@@ -153,6 +170,7 @@ Interpreting the results:
 - **Early convergence** on some models was noticed. This could be controlled by both  mutation probability and the proportion of child -parent selection mix.In our algorithm, the mutation rate is a constant throughout the run.
 - **Aggregating Objectives**: By objective function values to a point form and performing operations, we fail to recognize the accuracy on results. I have used the aggregation over the domination score for faster computation of the solutions space. However, this can be viewed as a threat as functions cannot always be aggregated. Domination score is preferred for accurate results.
 -  **Slow convergence** leads to more computing power demand. Hence, some of the ways like Aggregating Objectives was used to work around this problem. 
+-  **More Candidate Vectors** The analysis used [1,20] as lower and upperbound for the candidate generation.Howver, expanding the set to [1,100] would give us more candidate space to explore.
 
 ####vii. Scope of future work:
 
