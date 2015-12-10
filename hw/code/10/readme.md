@@ -15,8 +15,6 @@ A “generation” of new population is produced by selecting the best parents f
 
 The rest of the paper is organized as follows - Section ii discusses the algorithm approach. Section iii has the comparison operators listed, section iv is about experimental details the parameter choices made. Section v provides a summary of the results obtained when GA was tested against DTLZ 5. Section vi talks about the threats to the validity of our implementation while Section viii is about the Future scope of the implementation. Section viii is references.
 
-We will be testing the performance of our implementation of GA on 20 repeats of DTLZ 1, 3, 5, 7 models.
-
 ####ii. Understanding the Algorithm
 
 **ii1. Genetic Algorithm** : 
@@ -113,7 +111,7 @@ For each objective do
 - Repeat 20 times for each
 - Early termination: life = 5, each new generation, if not better, life=life-1; else, award 5 lives
 - Terminate when life = 0
-- 
+
 **iv3. Choice of tuning parameters:**
 
 - Number of candidates every generation: a 
@@ -123,9 +121,9 @@ For each objective do
 
 **iv4. Choice evualuation metrics: Hypervolume**
 
-Hypervolume measures the volume of the dominated portion of the objective space.The metric to grade the algorithm is hypervolume. For each model, decision and objective combination, the GA is run for 20 times and the Hypervolume for each of these runs is recorded. 
+Hypervolume measures the volume of the dominated portion of the objective space.The metric to grade the algorithm is hypervolume. For each model, decision and objective combination, the GA is run for 5 times and the Hypervolume for each of these runs is recorded. 
 
-**Output** Mean and Standard deviation for the GA for 5 times simulated over the model,decisions,objective combination
+**Output** Mean for the GA for 5 times simulated over the model,decisions,objective combination
 
 
 ####v. Summary of Results: 
@@ -134,13 +132,16 @@ Evualuation metrics: **Hypervolume**
 
 **DTLZ5**
 
-|Objectives\Decisions|10|20|40|
+|Runs\Type|Untuned|Tuned|Winner|
 |:---:|---|---|---|
-|2|Mean = 0.995274<br/>SD = 0.000746|Mean = 0.995741<br/>SD = 0.000963|Mean = 0.997400<br/>SD = 0.000815|
-|4|Mean = 0.995776<br/>SD = 0.001137|Mean = 0.995550<br/>SD = 0.000773|Mean = 0.997280<br/>SD = 0.000778|
-|6|Mean = 0.995050<br/>SD = 7.46e-05|Mean = 0.996299<br/>SD = 0.001378|Mean = 0.997431<br/>SD = 0.000945|
-|8|Mean = 0.995254<br/>SD = 0.000502|Mean = 0.995826<br/>SD = 0.001129|Mean = 0.997483<br/>SD = 0.000549|
-
+|1|Mean = 0.995274|Mean = 0.995741|Tuned|
+|2|Mean = 0.995776|Mean = 0.995550|Tuned|
+|3|Mean = 0.995050|Mean = 0.996299|Tuned|
+|4|Mean = 0.995254|Mean = 0.995826|Tuned|
+|5|Mean = 0.995274|Mean = 0.995741|Tuned|
+|6|Mean = 0.995776|Mean = 0.995550|Tuned|
+|7|Mean = 0.995050|Mean = 0.996299|Tuned|
+|8|Mean = 0.995254|Mean = 0.995826|Tuned|
 
 Interpreting the results:
 
